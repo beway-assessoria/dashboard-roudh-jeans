@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roudh Jeans — Dashboard Comercial 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f2f7;--bg2:#ffffff;--bg3:#e8ebf2;--bg4:#dde3ee;
+  --text:#0d1117;--text2:#4a5568;--text3:#8a94a6;
+  --border:rgba(0,0,0,0.08);
+  --shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.05);
+  --shadow-h:0 2px 8px rgba(0,0,0,0.10),0 8px 24px rgba(0,0,0,0.08);
+  --radius:14px;
+  --green:#00c896;--blue:#3b82f6;--gold:#f0a500;--purple:#7c3aed;--red:#ef4444;--teal:#0ea5e9;
+}
+[data-theme="dark"]{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1e2530;--bg4:#252d3a;
+  --text:#e6edf3;--text2:#8b949e;--text3:#484f58;
+  --border:rgba(255,255,255,0.07);
+  --shadow:0 1px 3px rgba(0,0,0,0.30),0 4px 16px rgba(0,0,0,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .25s,color .25s}
+.hd{background:var(--bg2);border-bottom:1px solid var(--border);height:60px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0d1117,#1e2a3a);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:900;font-size:12px;color:var(--green);letter-spacing:-.5px}
+.bname{font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.3px}
+.bsub{font-size:11px;color:var(--text3);margin-top:1px}
+.hdr{display:flex;align-items:center;gap:10px}
+.ts{font-size:11px;color:var(--text3)}
+.tmbtn{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-size:11px;font-weight:600;font-family:'Figtree',sans-serif;cursor:pointer;transition:all .2s}
+.tmbtn:hover{background:var(--bg4);color:var(--text)}
+.fb{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 28px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.mb{padding:5px 13px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:12px;font-weight:600;font-family:'Figtree',sans-serif;cursor:pointer;transition:all .18s;letter-spacing:.3px}
+.mb:hover{border-color:var(--green);color:var(--green)}
+.mb.on{background:var(--green);color:#0d1117;border-color:var(--green)}
+.sep{width:1px;height:22px;background:var(--border);margin:0 4px;flex-shrink:0}
+.drow{display:flex;align-items:center;gap:6px}
+.dlb{font-size:11px;color:var(--text3);font-weight:500}
+.din{padding:5px 9px;border-radius:7px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:11px;font-family:'Figtree',sans-serif}
+.din:focus{outline:none;border-color:var(--green)}
+.main{padding:20px 28px 40px}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.card{background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);transition:box-shadow .2s}
+.card:hover{box-shadow:var(--shadow-h)}
+.kc{padding:18px 20px;position:relative;overflow:hidden}
+.kc::after{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;border-radius:14px 14px 0 0}
+.cg::after{background:linear-gradient(90deg,#00c896,#00e5a8)}
+.cb::after{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.co::after{background:linear-gradient(90deg,#f0a500,#fbbf24)}
+.cp::after{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+.ct::after{background:linear-gradient(90deg,#0ea5e9,#38bdf8)}
+.klb{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;font-family:'Montserrat',sans-serif}
+.kv{font-family:'Montserrat',sans-serif;font-weight:800;font-size:26px;line-height:1;margin-bottom:7px}
+.cg .kv{color:var(--green)}.cb .kv{color:var(--blue)}.co .kv{color:var(--gold)}.cp .kv{color:var(--purple)}.ct .kv{color:var(--teal)}
+.bdg{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;font-family:'Montserrat',sans-serif;letter-spacing:.3px;margin-bottom:4px}
+.bup{background:rgba(0,200,150,.14);color:var(--green)}
+.bdn{background:rgba(239,68,68,.12);color:var(--red)}
+.bnu{background:rgba(59,130,246,.13);color:var(--blue)}
+.ks{font-size:10px;color:var(--text3)}
+.ch2{display:grid;grid-template-columns:1.9fr 1fr;gap:14px;margin-bottom:14px}
+.cc{padding:20px 22px}
+.ct2{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;letter-spacing:-.2px;margin-bottom:3px}
+.cs2{font-size:10px;color:var(--text3);margin-bottom:14px}
+.leg{display:flex;gap:14px;margin-bottom:10px;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);font-weight:500}
+.ld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.rw{display:flex;flex-direction:column;align-items:center;padding:6px 0}
+.rc{position:relative;width:110px;height:110px;margin:8px auto}
+.rsvg{transform:rotate(-90deg)}
+.ri{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rp{font-family:'Montserrat',sans-serif;font-weight:900;font-size:20px;color:var(--green);line-height:1}
+.rl{font-size:9px;color:var(--text3);font-weight:500;margin-top:2px;letter-spacing:.5px;text-transform:uppercase}
+.rinfo{text-align:center;font-size:10px;color:var(--text3);margin-top:4px}
+.rinfo strong{color:var(--text);font-weight:700}
+.stitle{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;letter-spacing:-.2px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.sc{padding:16px 18px;position:relative;overflow:hidden}
+.sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;border-radius:14px 14px 0 0}
+.s0::after{background:linear-gradient(90deg,#00c896,#00e5a8)}
+.s1::after{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.s2::after{background:linear-gradient(90deg,#f0a500,#fbbf24)}
+.s3::after{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+.s4::after{background:linear-gradient(90deg,#0ea5e9,#38bdf8)}
+.sn{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;margin-bottom:10px;letter-spacing:-.1px}
+.sv{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;color:var(--green);margin-bottom:2px}
+.sbt{width:100%;height:5px;background:var(--bg3);border-radius:3px;margin:10px 0 8px;overflow:hidden}
+.sbf{height:100%;border-radius:3px;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.s0 .sbf{background:linear-gradient(90deg,#00c896,#00e5a8)}
+.s1 .sbf{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.s2 .sbf{background:linear-gradient(90deg,#f0a500,#fbbf24)}
+.s3 .sbf{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+.s4 .sbf{background:linear-gradient(90deg,#0ea5e9,#38bdf8)}
+.ss{display:flex;gap:6px;flex-wrap:wrap}
+.sti{font-size:9.5px;color:var(--text3);font-weight:500}
+.sti span{color:var(--text2);font-weight:700}
+.mtag{position:absolute;top:11px;right:11px;padding:2px 7px;border-radius:5px;font-size:9px;font-weight:800;font-family:'Montserrat',sans-serif;letter-spacing:.3px}
+.mthit{background:rgba(0,200,150,.15);color:var(--green)}
+.mtmiss{background:rgba(239,68,68,.11);color:var(--red)}
+.bot{display:grid;grid-template-columns:1fr 1.4fr;gap:14px;margin-bottom:14px}
+.qg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.qi{background:var(--bg3);border-radius:10px;padding:14px}
+.ql{font-size:9px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--text3);margin-bottom:5px;font-family:'Montserrat',sans-serif}
+.qv{font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;line-height:1}
+.qc{font-size:10px;font-weight:600;margin-top:4px}
+.abcw{display:grid;grid-template-columns:1fr 1.6fr;gap:14px;margin-bottom:14px}
+.atabs{display:flex;gap:8px;margin-bottom:12px}
+.at{padding:5px 14px;border-radius:7px;font-size:11px;font-weight:700;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px;border:1.5px solid transparent}
+.at.A{border-color:rgba(0,200,150,.4);color:var(--green)}.at.B{border-color:rgba(59,130,246,.4);color:var(--blue)}.at.C{border-color:rgba(240,165,0,.4);color:var(--gold)}
+.at.on{opacity:1}.at:not(.on){opacity:.4}
+.at.A.on{background:rgba(0,200,150,.13)}.at.B.on{background:rgba(59,130,246,.13)}.at.C.on{background:rgba(240,165,0,.13)}
+.alb{font-size:10px;color:var(--text3);margin-bottom:8px}
+.tbl{width:100%;border-collapse:collapse;font-size:11px}
+.tbl th{text-align:left;padding:7px 8px;border-bottom:1px solid var(--border);color:var(--text3);font-weight:700;font-size:9px;text-transform:uppercase;letter-spacing:.6px;font-family:'Montserrat',sans-serif}
+.tbl td{padding:6px 8px;border-bottom:1px solid var(--border)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--bg3)}
+.cv{padding:2px 7px;border-radius:4px;font-size:9px;font-weight:800;font-family:'Montserrat',sans-serif;letter-spacing:.3px}
+.cvA{background:rgba(0,200,150,.14);color:var(--green)}.cvB{background:rgba(59,130,246,.14);color:var(--blue)}.cvC{background:rgba(240,165,0,.14);color:var(--gold)}
+.tscroll{max-height:300px;overflow-y:auto}
+.tscroll::-webkit-scrollbar{width:3px}
+.tscroll::-webkit-scrollbar-track{background:var(--bg3)}
+.tscroll::-webkit-scrollbar-thumb{background:var(--border)}
+@media(max-width:1200px){.row4{grid-template-columns:repeat(2,1fr)}.sg{grid-template-columns:repeat(3,1fr)}.ch2,.bot,.abcw{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-theme="light">
+<header class="hd">
+  <div class="brand">
+    <div class="logo">RJ</div>
+    <div><div class="bname">ROUDH JEANS</div><div class="bsub">Dashboard Comercial 2026</div></div>
+  </div>
+  <div class="hdr">
+    <span class="ts" id="ts"></span>
+    <button class="tmbtn" onclick="toggleTheme()"><span id="ti">🌙</span><span id="tl">Escuro</span></button>
+  </div>
+</header>
+<div class="fb">
+  <button class="mb on" id="b-all" onclick="sf('all')">Ano Todo</button>
+  <button class="mb" id="b-1" onclick="sf(1)">Jan</button>
+  <button class="mb" id="b-2" onclick="sf(2)">Fev</button>
+  <button class="mb" id="b-3" onclick="sf(3)">Mar</button>
+  <button class="mb" id="b-4" onclick="sf(4)">Abr</button>
+  <button class="mb" id="b-q1" onclick="sf('q1')">T1</button>
+  <div class="sep"></div>
+  <div class="drow">
+    <span class="dlb">De:</span>
+    <input class="din" type="date" id="df" value="2026-01-01" onchange="dr()">
+    <span class="dlb">Até:</span>
+    <input class="din" type="date" id="dt" value="2026-04-08" onchange="dr()">
+  </div>
+</div>
+<div class="main">
+  <div class="row4">
+    <div class="card kc cg"><div class="klb">Realizado</div><div class="kv" id="k-r">—</div><div class="bdg bup" id="k-vm">▲ vs meta</div><div class="ks" id="k-ms"></div></div>
+    <div class="card kc cb"><div class="klb">Crescimento vs 2025</div><div class="kv" id="k-c">—</div><div class="bdg bup" id="k-cb">▲ Acima</div><div class="ks" id="k-cs"></div></div>
+    <div class="card kc co"><div class="klb">Ticket Médio</div><div class="kv" id="k-t">—</div><div class="ks">por pedido</div></div>
+    <div class="card kc cp"><div class="klb">Preço Médio / Peça</div><div class="kv" id="k-p">—</div><div class="ks">por unidade</div></div>
+  </div>
+  <div class="row4">
+    <div class="card kc cg"><div class="klb">Total Pedidos</div><div class="kv" id="k-ped">—</div><div class="ks">no período</div></div>
+    <div class="card kc ct"><div class="klb">Qtd. Peças</div><div class="kv" id="k-pec">—</div><div class="ks">unidades vendidas</div></div>
+    <div class="card kc co"><div class="klb">Clientes Únicos</div><div class="kv" id="k-cli">—</div><div class="ks">no período</div></div>
+    <div class="card kc cp"><div class="klb">Total Comissão</div><div class="kv" id="k-com">—</div><div class="ks" id="k-coms">período</div></div>
+  </div>
+  <div class="ch2">
+    <div class="card cc">
+      <div class="ct2">Vendas Mensais — Realizado vs Meta vs 2025</div>
+      <div class="cs2">Comparativo de desempenho mês a mês</div>
+      <div class="leg">
+        <div class="li"><div class="ld" style="background:#00c896"></div>2026 Realizado</div>
+        <div class="li"><div class="ld" style="background:#f0a500"></div>Meta 2026</div>
+        <div class="li"><div class="ld" style="background:#7c3aed;opacity:.6"></div>2025</div>
+      </div>
+      <canvas id="chM" height="185"></canvas>
+    </div>
+    <div class="card cc">
+      <div class="ct2">Meta Anual YTD</div>
+      <div class="cs2">YTD vs Projetado 2026 — R$11,95M</div>
+      <div class="rw">
+        <div class="rc">
+          <svg class="rsvg" width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="44" fill="none" stroke="var(--bg3)" stroke-width="11"/>
+            <circle id="ring" cx="55" cy="55" r="44" fill="none" stroke="var(--green)" stroke-width="11"
+              stroke-dasharray="276.46" stroke-dashoffset="276.46" stroke-linecap="round"
+              style="transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)"/>
+          </svg>
+          <div class="ri"><div class="rp" id="rp">—</div><div class="rl">da meta</div></div>
+        </div>
+        <div class="rinfo" id="ri"></div>
+      </div>
+    </div>
+  </div>
+  <div class="stitle"><span>👤</span> Resultado por Vendedora</div>
+  <div class="sg" id="sg"></div>
+  <div class="bot">
+    <div class="card cc">
+      <div class="ct2">Resultado Trimestral</div>
+      <div class="cs2">T1 2026 vs T1 2025 e projeções</div>
+      <div class="qg" id="qg"></div>
+    </div>
+    <div class="card cc">
+      <div class="ct2">Crescimento por Mês — 2026 vs 2025</div>
+      <div class="cs2">Variação percentual no mesmo período</div>
+      <canvas id="chG" height="175"></canvas>
+    </div>
+  </div>
+  <div class="abcw">
+    <div class="card cc">
+      <div class="ct2">Curva ABC de Clientes</div>
+      <div class="cs2">Concentração de receita por segmento</div>
+      <div class="atabs" id="atabs"></div>
+      <div class="alb" id="alb"></div>
+      <div class="tscroll">
+        <table class="tbl">
+          <thead><tr><th>#</th><th>Cliente</th><th>Total</th><th>Pedidos</th><th>%</th><th>Curva</th></tr></thead>
+          <tbody id="abody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card cc">
+      <div class="ct2">Distribuição por Vendedora</div>
+      <div class="cs2">Participação no faturamento do período</div>
+      <canvas id="chD" height="220"></canvas>
+    </div>
+  </div>
+</div>
+<script>
+/* ===== DADOS REAIS ===== */
+/* DAILY_TOTAL: todos os vendedores — usado para KPIs de faturamento */
+const DAILY_TOTAL = [{"DataStr":"2026-01-03","total":2326.0,"pedidos":2,"pecas":34.0},{"DataStr":"2026-01-06","total":61536.0,"pedidos":37,"pecas":827.0},{"DataStr":"2026-01-07","total":62528.0,"pedidos":47,"pecas":795.0},{"DataStr":"2026-01-08","total":58130.0,"pedidos":40,"pecas":595.0},{"DataStr":"2026-01-09","total":7335.0,"pedidos":7,"pecas":105.0},{"DataStr":"2026-01-12","total":4764.0,"pedidos":9,"pecas":64.0},{"DataStr":"2026-01-13","total":41023.0,"pedidos":34,"pecas":494.0},{"DataStr":"2026-01-14","total":64620.0,"pedidos":39,"pecas":743.0},{"DataStr":"2026-01-15","total":24219.0,"pedidos":29,"pecas":303.0},{"DataStr":"2026-01-16","total":7613.0,"pedidos":11,"pecas":91.0},{"DataStr":"2026-01-19","total":41581.0,"pedidos":13,"pecas":348.0},{"DataStr":"2026-01-20","total":110851.0,"pedidos":73,"pecas":1383.0},{"DataStr":"2026-01-21","total":68207.0,"pedidos":56,"pecas":905.0},{"DataStr":"2026-01-22","total":62408.0,"pedidos":60,"pecas":807.0},{"DataStr":"2026-01-23","total":7721.0,"pedidos":5,"pecas":78.0},{"DataStr":"2026-01-26","total":1457.0,"pedidos":22,"pecas":28.0},{"DataStr":"2026-01-27","total":19092.0,"pedidos":22,"pecas":233.0},{"DataStr":"2026-01-28","total":131776.0,"pedidos":84,"pecas":1478.0},{"DataStr":"2026-01-29","total":60885.0,"pedidos":62,"pecas":741.0},{"DataStr":"2026-01-30","total":11344.0,"pedidos":8,"pecas":110.0},{"DataStr":"2026-01-31","total":21837.5,"pedidos":2,"pecas":20.0},{"DataStr":"2026-02-02","total":1124.0,"pedidos":11,"pecas":25.0},{"DataStr":"2026-02-03","total":31855.0,"pedidos":29,"pecas":341.0},{"DataStr":"2026-02-04","total":99497.0,"pedidos":86,"pecas":1077.0},{"DataStr":"2026-02-05","total":41402.0,"pedidos":51,"pecas":511.0},{"DataStr":"2026-02-06","total":5500.0,"pedidos":6,"pecas":77.0},{"DataStr":"2026-02-07","total":62.0,"pedidos":1,"pecas":1.0},{"DataStr":"2026-02-09","total":-1065.0,"pedidos":2,"pecas":-18.0},{"DataStr":"2026-02-10","total":114766.0,"pedidos":81,"pecas":1019.0},{"DataStr":"2026-02-11","total":44093.0,"pedidos":53,"pecas":613.0},{"DataStr":"2026-02-12","total":26232.0,"pedidos":42,"pecas":407.0},{"DataStr":"2026-02-13","total":30254.0,"pedidos":6,"pecas":45.0},{"DataStr":"2026-02-20","total":2119.0,"pedidos":3,"pecas":30.0},{"DataStr":"2026-02-23","total":3292.0,"pedidos":16,"pecas":40.0},{"DataStr":"2026-02-24","total":53675.0,"pedidos":26,"pecas":378.0},{"DataStr":"2026-02-25","total":37276.0,"pedidos":37,"pecas":393.0},{"DataStr":"2026-02-26","total":21898.0,"pedidos":25,"pecas":267.0},{"DataStr":"2026-02-27","total":7936.0,"pedidos":8,"pecas":102.0},{"DataStr":"2026-03-02","total":14637.0,"pedidos":12,"pecas":86.0},{"DataStr":"2026-03-03","total":73033.0,"pedidos":53,"pecas":723.0},{"DataStr":"2026-03-04","total":39254.0,"pedidos":38,"pecas":455.0},{"DataStr":"2026-03-05","total":31143.0,"pedidos":36,"pecas":340.0},{"DataStr":"2026-03-06","total":2535.0,"pedidos":3,"pecas":40.0},{"DataStr":"2026-03-07","total":3205.0,"pedidos":1,"pecas":5.0},{"DataStr":"2026-03-09","total":6048.0,"pedidos":12,"pecas":81.0},{"DataStr":"2026-03-10","total":91117.0,"pedidos":52,"pecas":776.0},{"DataStr":"2026-03-11","total":79352.0,"pedidos":71,"pecas":843.0},{"DataStr":"2026-03-12","total":37927.0,"pedidos":44,"pecas":456.0},{"DataStr":"2026-03-13","total":9231.0,"pedidos":13,"pecas":111.0},{"DataStr":"2026-03-16","total":20489.0,"pedidos":13,"pecas":73.0},{"DataStr":"2026-03-17","total":52049.0,"pedidos":41,"pecas":649.0},{"DataStr":"2026-03-18","total":40481.0,"pedidos":39,"pecas":307.0},{"DataStr":"2026-03-19","total":25616.0,"pedidos":31,"pecas":315.0},{"DataStr":"2026-03-20","total":40296.5,"pedidos":12,"pecas":90.0},{"DataStr":"2026-03-21","total":374.0,"pedidos":1,"pecas":5.0},{"DataStr":"2026-03-23","total":18107.0,"pedidos":10,"pecas":11.0},{"DataStr":"2026-03-24","total":77812.0,"pedidos":52,"pecas":794.0},{"DataStr":"2026-03-25","total":70790.0,"pedidos":64,"pecas":817.0},{"DataStr":"2026-03-26","total":33879.0,"pedidos":25,"pecas":257.0},{"DataStr":"2026-03-27","total":19311.0,"pedidos":10,"pecas":92.0},{"DataStr":"2026-03-30","total":7735.0,"pedidos":14,"pecas":92.0},{"DataStr":"2026-03-31","total":60987.0,"pedidos":56,"pecas":607.0},{"DataStr":"2026-04-01","total":32370.0,"pedidos":43,"pecas":440.0},{"DataStr":"2026-04-02","total":13884.0,"pedidos":9,"pecas":130.0},{"DataStr":"2026-04-06","total":24724.0,"pedidos":18,"pecas":89.0},{"DataStr":"2026-04-07","total":137427.0,"pedidos":86,"pecas":1184.0},{"DataStr":"2026-04-08","total":124582.0,"pedidos":82,"pecas":1250.0}];
+
+/* DAILY_SELLER: só vendedoras ativas (excl. Yara/Outros) — usado nos cards individuais */
+const DAILY_SELLER = [{"DataStr":"2026-01-03","Vendedor":"Antônio","total":2326.0,"pedidos":2,"pecas":34.0},{"DataStr":"2026-01-06","Vendedor":"Cibele","total":19373.0,"pedidos":13,"pecas":225.0},{"DataStr":"2026-01-06","Vendedor":"Fabiana","total":18867.0,"pedidos":12,"pecas":267.0},{"DataStr":"2026-01-06","Vendedor":"Jannielly","total":4210.0,"pedidos":1,"pecas":56.0},{"DataStr":"2026-01-07","Vendedor":"Antônio","total":5377.0,"pedidos":2,"pecas":78.0},{"DataStr":"2026-01-07","Vendedor":"Cibele","total":20164.0,"pedidos":16,"pecas":237.0},{"DataStr":"2026-01-07","Vendedor":"Fabiana","total":21932.0,"pedidos":18,"pecas":276.0},{"DataStr":"2026-01-08","Vendedor":"Antônio","total":11044.0,"pedidos":3,"pecas":51.0},{"DataStr":"2026-01-08","Vendedor":"Cibele","total":10817.0,"pedidos":13,"pecas":139.0},{"DataStr":"2026-01-08","Vendedor":"Fabiana","total":17431.0,"pedidos":10,"pecas":162.0},{"DataStr":"2026-01-08","Vendedor":"Jannielly","total":4100.0,"pedidos":2,"pecas":45.0},{"DataStr":"2026-01-09","Vendedor":"Cibele","total":1960.0,"pedidos":1,"pecas":26.0},{"DataStr":"2026-01-09","Vendedor":"Fabiana","total":870.0,"pedidos":1,"pecas":14.0},{"DataStr":"2026-01-12","Vendedor":"Cibele","total":208.0,"pedidos":1,"pecas":3.0},{"DataStr":"2026-01-12","Vendedor":"Fabiana","total":3930.0,"pedidos":6,"pecas":51.0},{"DataStr":"2026-01-13","Vendedor":"Antônio","total":800.0,"pedidos":1,"pecas":10.0},{"DataStr":"2026-01-13","Vendedor":"Cibele","total":388.0,"pedidos":1,"pecas":6.0},{"DataStr":"2026-01-13","Vendedor":"Fabiana","total":18698.0,"pedidos":12,"pecas":175.0},{"DataStr":"2026-01-14","Vendedor":"Cibele","total":29306.0,"pedidos":18,"pecas":273.0},{"DataStr":"2026-01-14","Vendedor":"Fabiana","total":20073.0,"pedidos":10,"pecas":262.0},{"DataStr":"2026-01-15","Vendedor":"Cibele","total":5938.0,"pedidos":7,"pecas":73.0},{"DataStr":"2026-01-15","Vendedor":"Fabiana","total":8346.0,"pedidos":10,"pecas":108.0},{"DataStr":"2026-01-15","Vendedor":"Jannielly","total":1090.0,"pedidos":1,"pecas":4.0},{"DataStr":"2026-01-16","Vendedor":"Cibele","total":295.0,"pedidos":2,"pecas":5.0},{"DataStr":"2026-01-16","Vendedor":"Fabiana","total":3500.0,"pedidos":4,"pecas":34.0},{"DataStr":"2026-01-16","Vendedor":"Jannielly","total":748.0,"pedidos":1,"pecas":10.0},{"DataStr":"2026-01-19","Vendedor":"Cibele","total":18672.0,"pedidos":5,"pecas":99.0},{"DataStr":"2026-01-19","Vendedor":"Fabiana","total":19647.0,"pedidos":5,"pecas":196.0},{"DataStr":"2026-01-20","Vendedor":"Antônio","total":16774.0,"pedidos":4,"pecas":96.0},{"DataStr":"2026-01-20","Vendedor":"Cibele","total":26301.0,"pedidos":17,"pecas":304.0},{"DataStr":"2026-01-20","Vendedor":"Fabiana","total":47367.0,"pedidos":35,"pecas":680.0},{"DataStr":"2026-01-20","Vendedor":"Jannielly","total":1410.0,"pedidos":1,"pecas":20.0},{"DataStr":"2026-01-21","Vendedor":"Antônio","total":4570.0,"pedidos":2,"pecas":35.0},{"DataStr":"2026-01-21","Vendedor":"Cibele","total":19999.0,"pedidos":18,"pecas":266.0},{"DataStr":"2026-01-21","Vendedor":"Fabiana","total":20454.0,"pedidos":19,"pecas":268.0},{"DataStr":"2026-01-22","Vendedor":"Cibele","total":18322.0,"pedidos":20,"pecas":218.0},{"DataStr":"2026-01-22","Vendedor":"Fabiana","total":22691.0,"pedidos":20,"pecas":281.0},{"DataStr":"2026-01-22","Vendedor":"Jannielly","total":1130.0,"pedidos":1,"pecas":8.0},{"DataStr":"2026-01-23","Vendedor":"Cibele","total":5131.0,"pedidos":3,"pecas":43.0},{"DataStr":"2026-01-23","Vendedor":"Fabiana","total":2280.0,"pedidos":1,"pecas":30.0},{"DataStr":"2026-01-26","Vendedor":"Cibele","total":1512.0,"pedidos":4,"pecas":27.0},{"DataStr":"2026-01-26","Vendedor":"Fabiana","total":-307.0,"pedidos":15,"pecas":-3.0},{"DataStr":"2026-01-27","Vendedor":"Cibele","total":13337.0,"pedidos":11,"pecas":163.0},{"DataStr":"2026-01-27","Vendedor":"Fabiana","total":3559.0,"pedidos":8,"pecas":41.0},{"DataStr":"2026-01-28","Vendedor":"Antônio","total":13510.0,"pedidos":2,"pecas":74.0},{"DataStr":"2026-01-28","Vendedor":"Cibele","total":37969.0,"pedidos":28,"pecas":469.0},{"DataStr":"2026-01-28","Vendedor":"Fabiana","total":60840.0,"pedidos":40,"pecas":654.0},{"DataStr":"2026-01-28","Vendedor":"Jannielly","total":1140.0,"pedidos":1,"pecas":14.0},{"DataStr":"2026-01-29","Vendedor":"Antônio","total":4340.0,"pedidos":1,"pecas":54.0},{"DataStr":"2026-01-29","Vendedor":"Cibele","total":25703.0,"pedidos":24,"pecas":275.0},{"DataStr":"2026-01-29","Vendedor":"Fabiana","total":9527.0,"pedidos":16,"pecas":122.0},{"DataStr":"2026-01-29","Vendedor":"Jannielly","total":5581.0,"pedidos":2,"pecas":78.0},{"DataStr":"2026-01-30","Vendedor":"Antônio","total":3080.0,"pedidos":1,"pecas":40.0},{"DataStr":"2026-01-30","Vendedor":"Cibele","total":820.0,"pedidos":2,"pecas":8.0},{"DataStr":"2026-01-30","Vendedor":"Fabiana","total":7444.0,"pedidos":5,"pecas":62.0},{"DataStr":"2026-01-31","Vendedor":"Fabiana","total":689.0,"pedidos":1,"pecas":10.0},{"DataStr":"2026-01-31","Vendedor":"Jannielly","total":21148.5,"pedidos":1,"pecas":10.0},{"DataStr":"2026-02-02","Vendedor":"Cibele","total":3005.0,"pedidos":6,"pecas":46.0},{"DataStr":"2026-02-02","Vendedor":"Fabiana","total":-2013.0,"pedidos":4,"pecas":-23.0},{"DataStr":"2026-02-03","Vendedor":"Aillany","total":3638.0,"pedidos":5,"pecas":51.0},{"DataStr":"2026-02-03","Vendedor":"Antônio","total":4658.0,"pedidos":1,"pecas":40.0},{"DataStr":"2026-02-03","Vendedor":"Cibele","total":11570.0,"pedidos":9,"pecas":140.0},{"DataStr":"2026-02-03","Vendedor":"Fabiana","total":12046.0,"pedidos":12,"pecas":110.0},{"DataStr":"2026-02-04","Vendedor":"Aillany","total":9677.0,"pedidos":18,"pecas":128.0},{"DataStr":"2026-02-04","Vendedor":"Antônio","total":12808.0,"pedidos":5,"pecas":79.0},{"DataStr":"2026-02-04","Vendedor":"Cibele","total":30775.0,"pedidos":22,"pecas":302.0},{"DataStr":"2026-02-04","Vendedor":"Fabiana","total":45947.0,"pedidos":40,"pecas":563.0},{"DataStr":"2026-02-04","Vendedor":"Jannielly","total":290.0,"pedidos":1,"pecas":5.0},{"DataStr":"2026-02-05","Vendedor":"Aillany","total":10724.0,"pedidos":13,"pecas":143.0},{"DataStr":"2026-02-05","Vendedor":"Antônio","total":3330.0,"pedidos":1,"pecas":40.0},{"DataStr":"2026-02-05","Vendedor":"Cibele","total":22005.0,"pedidos":20,"pecas":251.0},{"DataStr":"2026-02-05","Vendedor":"Fabiana","total":8545.0,"pedidos":14,"pecas":125.0},{"DataStr":"2026-02-06","Vendedor":"Aillany","total":63.0,"pedidos":1,"pecas":1.0},{"DataStr":"2026-02-06","Vendedor":"Cibele","total":1517.0,"pedidos":2,"pecas":16.0},{"DataStr":"2026-02-06","Vendedor":"Fabiana","total":3920.0,"pedidos":3,"pecas":60.0},{"DataStr":"2026-02-09","Vendedor":"Cibele","total":-900.0,"pedidos":1,"pecas":-15.0},{"DataStr":"2026-02-09","Vendedor":"Jannielly","total":-165.0,"pedidos":1,"pecas":-3.0},{"DataStr":"2026-02-10","Vendedor":"Aillany","total":19127.0,"pedidos":34,"pecas":289.0},{"DataStr":"2026-02-10","Vendedor":"Antônio","total":4891.0,"pedidos":2,"pecas":74.0},{"DataStr":"2026-02-10","Vendedor":"Cibele","total":16493.0,"pedidos":13,"pecas":246.0},{"DataStr":"2026-02-10","Vendedor":"Fabiana","total":24121.0,"pedidos":27,"pecas":372.0},{"DataStr":"2026-02-10","Vendedor":"Jannielly","total":0.0,"pedidos":2,"pecas":0.0},{"DataStr":"2026-02-11","Vendedor":"Aillany","total":6557.0,"pedidos":11,"pecas":108.0},{"DataStr":"2026-02-11","Vendedor":"Antônio","total":-415.0,"pedidos":4,"pecas":3.0},{"DataStr":"2026-02-11","Vendedor":"Cibele","total":19734.0,"pedidos":16,"pecas":220.0},{"DataStr":"2026-02-11","Vendedor":"Fabiana","total":16410.0,"pedidos":20,"pecas":253.0},{"DataStr":"2026-02-11","Vendedor":"Jannielly","total":1933.0,"pedidos":1,"pecas":31.0},{"DataStr":"2026-02-12","Vendedor":"Aillany","total":4367.0,"pedidos":10,"pecas":68.0},{"DataStr":"2026-02-12","Vendedor":"Cibele","total":7504.0,"pedidos":11,"pecas":125.0},{"DataStr":"2026-02-12","Vendedor":"Fabiana","total":13667.0,"pedidos":20,"pecas":206.0},{"DataStr":"2026-02-12","Vendedor":"Jannielly","total":694.0,"pedidos":1,"pecas":8.0},{"DataStr":"2026-02-13","Vendedor":"Cibele","total":123.0,"pedidos":1,"pecas":2.0},{"DataStr":"2026-02-13","Vendedor":"Fabiana","total":1703.0,"pedidos":4,"pecas":26.0},{"DataStr":"2026-02-13","Vendedor":"Jannielly","total":28428.0,"pedidos":1,"pecas":17.0},{"DataStr":"2026-02-23","Vendedor":"Aillany","total":431.0,"pedidos":2,"pecas":7.0},{"DataStr":"2026-02-23","Vendedor":"Cibele","total":2254.0,"pedidos":5,"pecas":31.0},{"DataStr":"2026-02-23","Vendedor":"Fabiana","total":1007.0,"pedidos":8,"pecas":7.0},{"DataStr":"2026-02-24","Vendedor":"Aillany","total":6251.0,"pedidos":6,"pecas":94.0},{"DataStr":"2026-02-24","Vendedor":"Cibele","total":22185.0,"pedidos":8,"pecas":111.0},{"DataStr":"2026-02-24","Vendedor":"Fabiana","total":20003.0,"pedidos":10,"pecas":110.0},{"DataStr":"2026-02-24","Vendedor":"Jannielly","total":5236.0,"pedidos":2,"pecas":63.0},{"DataStr":"2026-02-25","Vendedor":"Aillany","total":8445.0,"pedidos":10,"pecas":79.0},{"DataStr":"2026-02-25","Vendedor":"Cibele","total":8775.0,"pedidos":8,"pecas":107.0},{"DataStr":"2026-02-25","Vendedor":"Fabiana","total":20056.0,"pedidos":19,"pecas":207.0},{"DataStr":"2026-02-26","Vendedor":"Aillany","total":7234.0,"pedidos":9,"pecas":91.0},{"DataStr":"2026-02-26","Vendedor":"Cibele","total":4870.0,"pedidos":6,"pecas":61.0},{"DataStr":"2026-02-26","Vendedor":"Fabiana","total":9794.0,"pedidos":10,"pecas":115.0},{"DataStr":"2026-02-27","Vendedor":"Aillany","total":3016.0,"pedidos":3,"pecas":41.0},{"DataStr":"2026-02-27","Vendedor":"Cibele","total":2950.0,"pedidos":3,"pecas":36.0},{"DataStr":"2026-02-27","Vendedor":"Fabiana","total":1970.0,"pedidos":2,"pecas":25.0},{"DataStr":"2026-03-02","Vendedor":"Cibele","total":11874.0,"pedidos":7,"pecas":46.0},{"DataStr":"2026-03-02","Vendedor":"Fabiana","total":2685.0,"pedidos":4,"pecas":39.0},{"DataStr":"2026-03-03","Vendedor":"Aillany","total":11224.0,"pedidos":10,"pecas":145.0},{"DataStr":"2026-03-03","Vendedor":"Antônio","total":300.0,"pedidos":1,"pecas":5.0},{"DataStr":"2026-03-03","Vendedor":"Cibele","total":19050.0,"pedidos":18,"pecas":204.0},{"DataStr":"2026-03-03","Vendedor":"Fabiana","total":41715.0,"pedidos":22,"pecas":367.0},{"DataStr":"2026-03-04","Vendedor":"Aillany","total":10195.0,"pedidos":9,"pecas":133.0},{"DataStr":"2026-03-04","Vendedor":"Cibele","total":17041.0,"pedidos":18,"pecas":209.0},{"DataStr":"2026-03-04","Vendedor":"Fabiana","total":12018.0,"pedidos":11,"pecas":113.0},{"DataStr":"2026-03-05","Vendedor":"Aillany","total":2076.0,"pedidos":13,"pecas":57.0},{"DataStr":"2026-03-05","Vendedor":"Antônio","total":5035.0,"pedidos":3,"pecas":29.0},{"DataStr":"2026-03-05","Vendedor":"Cibele","total":13772.0,"pedidos":10,"pecas":110.0},{"DataStr":"2026-03-05","Vendedor":"Fabiana","total":10260.0,"pedidos":10,"pecas":144.0},{"DataStr":"2026-03-06","Vendedor":"Aillany","total":1290.0,"pedidos":2,"pecas":20.0},{"DataStr":"2026-03-06","Vendedor":"Fabiana","total":1245.0,"pedidos":1,"pecas":20.0},{"DataStr":"2026-03-07","Vendedor":"Antônio","total":3205.0,"pedidos":1,"pecas":5.0},{"DataStr":"2026-03-09","Vendedor":"Aillany","total":422.0,"pedidos":6,"pecas":5.0},{"DataStr":"2026-03-09","Vendedor":"Cibele","total":2000.0,"pedidos":3,"pecas":28.0},{"DataStr":"2026-03-09","Vendedor":"Fabiana","total":3626.0,"pedidos":3,"pecas":48.0},{"DataStr":"2026-03-10","Vendedor":"Aillany","total":18336.0,"pedidos":15,"pecas":218.0},{"DataStr":"2026-03-10","Vendedor":"Cibele","total":46086.0,"pedidos":17,"pecas":330.0},{"DataStr":"2026-03-10","Vendedor":"Fabiana","total":19669.0,"pedidos":18,"pecas":230.0},{"DataStr":"2026-03-10","Vendedor":"Jannielly","total":7626.0,"pedidos":1,"pecas":4.0},{"DataStr":"2026-03-11","Vendedor":"Aillany","total":16954.0,"pedidos":18,"pecas":194.0},{"DataStr":"2026-03-11","Vendedor":"Antônio","total":13345.0,"pedidos":4,"pecas":43.0},{"DataStr":"2026-03-11","Vendedor":"Cibele","total":17898.0,"pedidos":25,"pecas":234.0},{"DataStr":"2026-03-11","Vendedor":"Fabiana","total":31155.0,"pedidos":24,"pecas":372.0},{"DataStr":"2026-03-12","Vendedor":"Aillany","total":7591.0,"pedidos":11,"pecas":91.0},{"DataStr":"2026-03-12","Vendedor":"Antônio","total":960.0,"pedidos":1,"pecas":11.0},{"DataStr":"2026-03-12","Vendedor":"Cibele","total":15024.0,"pedidos":16,"pecas":164.0},{"DataStr":"2026-03-12","Vendedor":"Fabiana","total":13884.0,"pedidos":15,"pecas":184.0},{"DataStr":"2026-03-13","Vendedor":"Aillany","total":780.0,"pedidos":1,"pecas":10.0},{"DataStr":"2026-03-13","Vendedor":"Cibele","total":7771.0,"pedidos":10,"pecas":90.0},{"DataStr":"2026-03-13","Vendedor":"Fabiana","total":620.0,"pedidos":1,"pecas":10.0},{"DataStr":"2026-03-16","Vendedor":"Aillany","total":2519.0,"pedidos":4,"pecas":35.0},{"DataStr":"2026-03-16","Vendedor":"Cibele","total":-1184.0,"pedidos":3,"pecas":-6.0},{"DataStr":"2026-03-16","Vendedor":"Fabiana","total":2358.0,"pedidos":5,"pecas":35.0},{"DataStr":"2026-03-16","Vendedor":"Jannielly","total":16796.0,"pedidos":1,"pecas":9.0},{"DataStr":"2026-03-17","Vendedor":"Aillany","total":13113.0,"pedidos":11,"pecas":161.0},{"DataStr":"2026-03-17","Vendedor":"Antônio","total":1860.0,"pedidos":1,"pecas":25.0},{"DataStr":"2026-03-17","Vendedor":"Cibele","total":8159.0,"pedidos":12,"pecas":100.0},{"DataStr":"2026-03-17","Vendedor":"Fabiana","total":21783.0,"pedidos":15,"pecas":283.0},{"DataStr":"2026-03-17","Vendedor":"Jannielly","total":7134.0,"pedidos":2,"pecas":80.0},{"DataStr":"2026-03-18","Vendedor":"Aillany","total":7129.0,"pedidos":11,"pecas":84.0},{"DataStr":"2026-03-18","Vendedor":"Antônio","total":-480.0,"pedidos":2,"pecas":0.0},{"DataStr":"2026-03-18","Vendedor":"Cibele","total":8045.0,"pedidos":13,"pecas":97.0},{"DataStr":"2026-03-18","Vendedor":"Fabiana","total":8607.0,"pedidos":11,"pecas":113.0},{"DataStr":"2026-03-18","Vendedor":"Jannielly","total":16956.0,"pedidos":1,"pecas":10.0},{"DataStr":"2026-03-19","Vendedor":"Aillany","total":3867.0,"pedidos":6,"pecas":53.0},{"DataStr":"2026-03-19","Vendedor":"Cibele","total":6913.0,"pedidos":5,"pecas":70.0},{"DataStr":"2026-03-19","Vendedor":"Fabiana","total":14516.0,"pedidos":18,"pecas":188.0},{"DataStr":"2026-03-20","Vendedor":"Aillany","total":2218.0,"pedidos":3,"pecas":30.0},{"DataStr":"2026-03-20","Vendedor":"Cibele","total":1705.0,"pedidos":4,"pecas":23.0},{"DataStr":"2026-03-20","Vendedor":"Fabiana","total":1494.0,"pedidos":4,"pecas":22.0},{"DataStr":"2026-03-20","Vendedor":"Jannielly","total":34879.5,"pedidos":1,"pecas":15.0},{"DataStr":"2026-03-23","Vendedor":"Cibele","total":-651.0,"pedidos":6,"pecas":-8.0},{"DataStr":"2026-03-23","Vendedor":"Fabiana","total":1301.0,"pedidos":3,"pecas":14.0},{"DataStr":"2026-03-23","Vendedor":"Jannielly","total":17457.0,"pedidos":1,"pecas":5.0},{"DataStr":"2026-03-24","Vendedor":"Aillany","total":23616.0,"pedidos":18,"pecas":242.0},{"DataStr":"2026-03-24","Vendedor":"Cibele","total":26875.0,"pedidos":15,"pecas":292.0},{"DataStr":"2026-03-24","Vendedor":"Fabiana","total":24598.0,"pedidos":18,"pecas":231.0},{"DataStr":"2026-03-24","Vendedor":"Jannielly","total":2723.0,"pedidos":1,"pecas":29.0},{"DataStr":"2026-03-25","Vendedor":"Aillany","total":14072.0,"pedidos":14,"pecas":167.0},{"DataStr":"2026-03-25","Vendedor":"Cibele","total":22976.0,"pedidos":21,"pecas":290.0},{"DataStr":"2026-03-25","Vendedor":"Fabiana","total":33742.0,"pedidos":29,"pecas":360.0},{"DataStr":"2026-03-26","Vendedor":"Aillany","total":5586.0,"pedidos":9,"pecas":75.0},{"DataStr":"2026-03-26","Vendedor":"Cibele","total":21667.0,"pedidos":9,"pecas":100.0},{"DataStr":"2026-03-26","Vendedor":"Fabiana","total":6626.0,"pedidos":7,"pecas":82.0},{"DataStr":"2026-03-27","Vendedor":"Aillany","total":1388.0,"pedidos":2,"pecas":22.0},{"DataStr":"2026-03-27","Vendedor":"Cibele","total":1133.0,"pedidos":2,"pecas":13.0},{"DataStr":"2026-03-27","Vendedor":"Fabiana","total":16790.0,"pedidos":6,"pecas":57.0},{"DataStr":"2026-03-30","Vendedor":"Aillany","total":3200.0,"pedidos":3,"pecas":39.0},{"DataStr":"2026-03-30","Vendedor":"Cibele","total":1096.0,"pedidos":4,"pecas":14.0},{"DataStr":"2026-03-30","Vendedor":"Fabiana","total":3439.0,"pedidos":7,"pecas":39.0},{"DataStr":"2026-03-31","Vendedor":"Aillany","total":7091.0,"pedidos":13,"pecas":99.0},{"DataStr":"2026-03-31","Vendedor":"Antônio","total":5765.0,"pedidos":1,"pecas":12.0},{"DataStr":"2026-03-31","Vendedor":"Cibele","total":20944.0,"pedidos":16,"pecas":217.0},{"DataStr":"2026-03-31","Vendedor":"Fabiana","total":27187.0,"pedidos":26,"pecas":279.0},{"DataStr":"2026-04-01","Vendedor":"Aillany","total":9094.0,"pedidos":18,"pecas":129.0},{"DataStr":"2026-04-01","Vendedor":"Antônio","total":815.0,"pedidos":1,"pecas":10.0},{"DataStr":"2026-04-01","Vendedor":"Cibele","total":8407.0,"pedidos":10,"pecas":103.0},{"DataStr":"2026-04-01","Vendedor":"Fabiana","total":14054.0,"pedidos":14,"pecas":198.0},{"DataStr":"2026-04-02","Vendedor":"Aillany","total":4855.0,"pedidos":4,"pecas":44.0},{"DataStr":"2026-04-02","Vendedor":"Cibele","total":7119.0,"pedidos":3,"pecas":53.0},{"DataStr":"2026-04-02","Vendedor":"Fabiana","total":1910.0,"pedidos":2,"pecas":33.0},{"DataStr":"2026-04-06","Vendedor":"Aillany","total":1595.0,"pedidos":5,"pecas":21.0},{"DataStr":"2026-04-06","Vendedor":"Cibele","total":2726.0,"pedidos":7,"pecas":38.0},{"DataStr":"2026-04-06","Vendedor":"Fabiana","total":2358.0,"pedidos":5,"pecas":25.0},{"DataStr":"2026-04-06","Vendedor":"Jannielly","total":18045.0,"pedidos":1,"pecas":5.0},{"DataStr":"2026-04-07","Vendedor":"Aillany","total":30652.0,"pedidos":24,"pecas":278.0},{"DataStr":"2026-04-07","Vendedor":"Antônio","total":8318.0,"pedidos":4,"pecas":84.0},{"DataStr":"2026-04-07","Vendedor":"Cibele","total":46251.0,"pedidos":18,"pecas":258.0},{"DataStr":"2026-04-07","Vendedor":"Fabiana","total":46945.0,"pedidos":39,"pecas":517.0},{"DataStr":"2026-04-07","Vendedor":"Jannielly","total":5261.0,"pedidos":1,"pecas":47.0},{"DataStr":"2026-04-08","Vendedor":"Aillany","total":22790.0,"pedidos":20,"pecas":235.0},{"DataStr":"2026-04-08","Vendedor":"Antônio","total":10888.0,"pedidos":2,"pecas":49.0},{"DataStr":"2026-04-08","Vendedor":"Cibele","total":31487.0,"pedidos":18,"pecas":332.0},{"DataStr":"2026-04-08","Vendedor":"Fabiana","total":58679.0,"pedidos":40,"pecas":625.0}];
+
+/* Clientes ABC */
+const CLIENTS = [{"Cliente":"OZZO FASHION LTDA","total":162600.0,"pedidos":6,"pecas":72.0,"pct":6.3,"acum":6.3,"curva":"A"},{"Cliente":"Luciana Vinhais de Sousa","total":77214.0,"pedidos":9,"pecas":157.0,"pct":2.99,"acum":9.29,"curva":"A"},{"Cliente":"BRUNO DE RESENDES BARBOSA","total":64010.0,"pedidos":6,"pecas":89.0,"pct":2.48,"acum":11.77,"curva":"A"},{"Cliente":"Tais de Araujo Lima","total":46050.0,"pedidos":5,"pecas":133.0,"pct":1.79,"acum":13.56,"curva":"A"},{"Cliente":"BRUNA MENDES BEZERRA","total":40003.0,"pedidos":6,"pecas":279.0,"pct":1.55,"acum":15.11,"curva":"A"},{"Cliente":"Jeferson França Amorim","total":38393.0,"pedidos":13,"pecas":481.0,"pct":1.49,"acum":16.6,"curva":"A"},{"Cliente":"MARIA MAYANNE BARBOSA CONFECCOES","total":37415.0,"pedidos":7,"pecas":56.0,"pct":1.45,"acum":18.05,"curva":"A"},{"Cliente":"NATHALIA MELO SILVA COMERCIO VAREJISTA EIRELI-ME","total":35295.0,"pedidos":8,"pecas":78.0,"pct":1.37,"acum":19.42,"curva":"A"},{"Cliente":"MAPS CAIFF CONFECCOES LTDA","total":30041.0,"pedidos":14,"pecas":285.0,"pct":1.16,"acum":20.58,"curva":"A"},{"Cliente":"Celia Regina de Souza","total":29861.0,"pedidos":10,"pecas":273.0,"pct":1.16,"acum":21.74,"curva":"A"},{"Cliente":"Ana Paula Barbosa Freitas","total":23092.0,"pedidos":6,"pecas":283.0,"pct":0.9,"acum":22.64,"curva":"A"},{"Cliente":"Bella Seda Industria E Comercio D Confeccoes","total":18890.0,"pedidos":8,"pecas":25.0,"pct":0.73,"acum":23.37,"curva":"A"},{"Cliente":"Yanne Cordeiro Gomes","total":18374.0,"pedidos":9,"pecas":232.0,"pct":0.71,"acum":24.08,"curva":"A"},{"Cliente":"ARMANDO MARINHO COSTA JUNIOR 03057698557","total":18091.0,"pedidos":4,"pecas":86.0,"pct":0.7,"acum":24.78,"curva":"A"},{"Cliente":"Paolla Maria Roupas E Acessorios Ltda","total":16826.0,"pedidos":4,"pecas":37.0,"pct":0.65,"acum":25.43,"curva":"A"},{"Cliente":"Ana Helia","total":16605.0,"pedidos":7,"pecas":202.0,"pct":0.64,"acum":26.07,"curva":"A"},{"Cliente":"AMANDA LOPES LEAL 07376432345","total":15558.0,"pedidos":6,"pecas":130.0,"pct":0.6,"acum":26.67,"curva":"A"},{"Cliente":"MIGUEL VICTOR MENDONCA BARRO","total":15320.0,"pedidos":9,"pecas":174.0,"pct":0.59,"acum":27.26,"curva":"A"},{"Cliente":"Erica Domingues De Magalhães","total":15216.0,"pedidos":4,"pecas":190.0,"pct":0.59,"acum":27.85,"curva":"A"},{"Cliente":"Tf Silva Eirelli","total":14426.0,"pedidos":9,"pecas":148.0,"pct":0.56,"acum":28.41,"curva":"A"},{"Cliente":"Bruna Rafaella Carneiro","total":14063.0,"pedidos":19,"pecas":181.0,"pct":0.55,"acum":28.96,"curva":"A"},{"Cliente":"Ana Claudia Arruda de Aguiar","total":13925.0,"pedidos":23,"pecas":195.0,"pct":0.54,"acum":29.5,"curva":"A"},{"Cliente":"49.572.752 GUILHERME TEIXEIRA MOREIRA","total":13298.0,"pedidos":7,"pecas":198.0,"pct":0.52,"acum":30.02,"curva":"A"},{"Cliente":"Janderi Cavalcante de Souza","total":13026.0,"pedidos":12,"pecas":184.0,"pct":0.5,"acum":30.52,"curva":"A"},{"Cliente":"Gabriel Teles de Souza Siqueira","total":12902.0,"pedidos":9,"pecas":160.0,"pct":0.5,"acum":31.02,"curva":"A"},{"Cliente":"Vilton Nascimento Costa Filho","total":12777.0,"pedidos":4,"pecas":109.0,"pct":0.5,"acum":31.52,"curva":"A"},{"Cliente":"LIVIA PEREIRA SUZART","total":12645.0,"pedidos":7,"pecas":91.0,"pct":0.49,"acum":32.01,"curva":"A"},{"Cliente":"Vitoria Lima","total":12322.0,"pedidos":5,"pecas":55.0,"pct":0.48,"acum":32.49,"curva":"A"},{"Cliente":"D'TALE MODAS LTDA ME","total":12278.0,"pedidos":2,"pecas":49.0,"pct":0.48,"acum":32.97,"curva":"A"},{"Cliente":"Maciele Doria Costa","total":12275.0,"pedidos":11,"pecas":180.0,"pct":0.48,"acum":33.45,"curva":"A"},{"Cliente":"QUELLE MAIANE NUNES DE SANTANA","total":11468.0,"pedidos":4,"pecas":70.0,"pct":0.44,"acum":33.89,"curva":"A"},{"Cliente":"Classy Comercio de Roupas Ltda","total":11282.0,"pedidos":9,"pecas":125.0,"pct":0.44,"acum":34.33,"curva":"A"},{"Cliente":"SPACO X LTDA","total":10486.0,"pedidos":6,"pecas":134.0,"pct":0.41,"acum":34.74,"curva":"A"},{"Cliente":"Aniely Gonçalves de Matos","total":10474.0,"pedidos":5,"pecas":142.0,"pct":0.41,"acum":35.15,"curva":"A"},{"Cliente":"Lalastore Comercio Varejista de Vestuario Ltda","total":10422.0,"pedidos":13,"pecas":143.0,"pct":0.4,"acum":35.55,"curva":"A"},{"Cliente":"Aline Bonner dos Santos Reis 02667082508","total":10320.0,"pedidos":10,"pecas":148.0,"pct":0.4,"acum":35.95,"curva":"A"},{"Cliente":"Ruanna Jessika Medeiros de Souza Santos","total":10049.0,"pedidos":8,"pecas":129.0,"pct":0.39,"acum":36.34,"curva":"A"},{"Cliente":"Nayara Prudente","total":9728.0,"pedidos":11,"pecas":135.0,"pct":0.38,"acum":36.72,"curva":"A"},{"Cliente":"Ednilza Lima De Almeida","total":9636.0,"pedidos":8,"pecas":125.0,"pct":0.37,"acum":37.09,"curva":"A"},{"Cliente":"Ricardo Alves de Gois","total":9544.0,"pedidos":2,"pecas":138.0,"pct":0.37,"acum":37.46,"curva":"A"},{"Cliente":"Erica Madalena de Jesus","total":9449.0,"pedidos":10,"pecas":136.0,"pct":0.37,"acum":37.83,"curva":"A"},{"Cliente":"WANDERSON BATISTA ALVES","total":9448.0,"pedidos":3,"pecas":41.0,"pct":0.37,"acum":38.2,"curva":"A"},{"Cliente":"MARICOTA LOJA DE ROUPAS LTDA","total":9330.0,"pedidos":3,"pecas":90.0,"pct":0.36,"acum":38.56,"curva":"A"},{"Cliente":"LA BOUTIQUE DA MODA","total":9180.0,"pedidos":5,"pecas":90.0,"pct":0.36,"acum":38.92,"curva":"A"},{"Cliente":"ABSOLUTA ROUPAS RIBEIRAO PRETO LTDA","total":9098.0,"pedidos":8,"pecas":79.0,"pct":0.35,"acum":39.27,"curva":"A"},{"Cliente":"Antonny Araújo","total":8998.0,"pedidos":3,"pecas":112.0,"pct":0.35,"acum":39.62,"curva":"A"},{"Cliente":"Luciana Eulália de Farias Costa","total":8914.0,"pedidos":7,"pecas":116.0,"pct":0.35,"acum":39.97,"curva":"A"},{"Cliente":"Danila Dark Gomes Vieira","total":8780.0,"pedidos":1,"pecas":30.0,"pct":0.34,"acum":40.31,"curva":"A"},{"Cliente":"Cinthia Rafaela Rocha","total":8701.0,"pedidos":7,"pecas":109.0,"pct":0.34,"acum":40.65,"curva":"A"},{"Cliente":"BRUNA ANDRADE DO NASCIMENTO 06945923584","total":8250.0,"pedidos":5,"pecas":80.0,"pct":0.32,"acum":40.97,"curva":"A"},{"Cliente":"Marcela Tavares","total":8151.0,"pedidos":9,"pecas":103.0,"pct":0.32,"acum":41.29,"curva":"A"},{"Cliente":"JUDIVAN BATISTA CONFECCOES","total":8141.0,"pedidos":5,"pecas":108.0,"pct":0.32,"acum":41.61,"curva":"A"},{"Cliente":"PRISCILA FURTADO DE SOUZA ME","total":7847.0,"pedidos":5,"pecas":70.0,"pct":0.3,"acum":41.91,"curva":"A"},{"Cliente":"SILVANIA MELO CONFECCOES LTDA","total":7812.0,"pedidos":5,"pecas":109.0,"pct":0.3,"acum":42.21,"curva":"A"},{"Cliente":"ROSSANNA HELLEN ZAMBOM CUNHA","total":7717.0,"pedidos":7,"pecas":87.0,"pct":0.3,"acum":42.51,"curva":"A"},{"Cliente":"MARIA ELIZA QUADRAS ATAIDE CASTILHO 55927980759","total":7691.0,"pedidos":4,"pecas":95.0,"pct":0.3,"acum":42.81,"curva":"A"},{"Cliente":"Thalyta Saraiva - Me","total":7626.0,"pedidos":1,"pecas":4.0,"pct":0.3,"acum":43.11,"curva":"A"},{"Cliente":"AMANDA SANTANA DA SILVA","total":7508.0,"pedidos":8,"pecas":72.0,"pct":0.29,"acum":43.4,"curva":"A"},{"Cliente":"Ana Paula Costa Pessoa","total":7391.0,"pedidos":4,"pecas":108.0,"pct":0.29,"acum":43.69,"curva":"A"},{"Cliente":"Silvandira dos Anjos Sampaio","total":7264.0,"pedidos":7,"pecas":98.0,"pct":0.28,"acum":43.97,"curva":"A"},{"Cliente":"Mara Confecções","total":7250.0,"pedidos":3,"pecas":82.0,"pct":0.28,"acum":44.25,"curva":"A"},{"Cliente":"Ana Helia Moura Patricio","total":7236.0,"pedidos":3,"pecas":90.0,"pct":0.28,"acum":44.53,"curva":"A"},{"Cliente":"Sanchara Kionyferreira da Silva","total":7098.0,"pedidos":10,"pecas":92.0,"pct":0.28,"acum":44.81,"curva":"A"},{"Cliente":"Mayara dos Santos Pereira Vidal","total":6955.0,"pedidos":6,"pecas":110.0,"pct":0.27,"acum":45.08,"curva":"A"},{"Cliente":"Fabricia Souza Rodrigues","total":6886.0,"pedidos":5,"pecas":98.0,"pct":0.27,"acum":45.35,"curva":"A"},{"Cliente":"51.012.495 PEDRO HENRIQUE MARQUES ARAGAO ALVES","total":6593.0,"pedidos":8,"pecas":85.0,"pct":0.26,"acum":45.61,"curva":"A"},{"Cliente":"FERRIE BRECHO VESTUARIO E ACESORIOS LTDA","total":6523.0,"pedidos":4,"pecas":78.0,"pct":0.25,"acum":45.86,"curva":"A"},{"Cliente":"Fernanda de Novinho","total":6482.0,"pedidos":5,"pecas":83.0,"pct":0.25,"acum":46.11,"curva":"A"},{"Cliente":"Bárbara Steffany de Castro P . E Laranjeiras","total":6481.0,"pedidos":8,"pecas":88.0,"pct":0.25,"acum":46.36,"curva":"A"},{"Cliente":"DAYANNE KELLE GOMES","total":6456.0,"pedidos":4,"pecas":75.0,"pct":0.25,"acum":46.61,"curva":"A"},{"Cliente":"Laiana Soares","total":6412.0,"pedidos":10,"pecas":103.0,"pct":0.25,"acum":46.86,"curva":"A"},{"Cliente":"Amanda da Cunha Paiva","total":6400.0,"pedidos":4,"pecas":85.0,"pct":0.25,"acum":47.11,"curva":"A"},{"Cliente":"SUCESSO MODAS CONFECCOES LTDA","total":6347.0,"pedidos":3,"pecas":83.0,"pct":0.25,"acum":47.36,"curva":"A"},{"Cliente":"PAULO RICARDO LIMA BASTOS","total":6247.0,"pedidos":4,"pecas":70.0,"pct":0.24,"acum":47.6,"curva":"A"},{"Cliente":"CORACINE STORE LTDA","total":6150.0,"pedidos":1,"pecas":5.0,"pct":0.24,"acum":47.84,"curva":"A"},{"Cliente":"Jaqueline Lima Gonçalves","total":6063.0,"pedidos":7,"pecas":84.0,"pct":0.24,"acum":48.08,"curva":"A"},{"Cliente":"Bethyane Aragao Soares","total":6045.0,"pedidos":1,"pecas":30.0,"pct":0.23,"acum":48.31,"curva":"A"},{"Cliente":"RAYSSA MARCELLY VASCO","total":6032.0,"pedidos":4,"pecas":87.0,"pct":0.23,"acum":48.54,"curva":"A"},{"Cliente":"Luana de Souza Milani","total":5980.0,"pedidos":1,"pecas":21.0,"pct":0.23,"acum":48.77,"curva":"A"},{"Cliente":"Catharine Concept Ltda","total":5956.0,"pedidos":2,"pecas":61.0,"pct":0.23,"acum":49.0,"curva":"A"},{"Cliente":"M G P DA S FERNANDES","total":5900.0,"pedidos":5,"pecas":47.0,"pct":0.23,"acum":49.23,"curva":"A"},{"Cliente":"Maíra Oliveira","total":5893.0,"pedidos":7,"pecas":73.0,"pct":0.23,"acum":49.46,"curva":"A"},{"Cliente":"Roseli Soares Santos","total":5856.0,"pedidos":9,"pecas":83.0,"pct":0.23,"acum":49.69,"curva":"A"},{"Cliente":"Simonia dos Santos Fernandes Moraes 70299420191","total":5794.0,"pedidos":5,"pecas":77.0,"pct":0.22,"acum":49.91,"curva":"A"},{"Cliente":"RITA MAGALINE SANTOS DE SOUZA 57790000500","total":5775.0,"pedidos":7,"pecas":86.0,"pct":0.22,"acum":50.13,"curva":"A"},{"Cliente":"Átila Mura Borges","total":5735.0,"pedidos":7,"pecas":77.0,"pct":0.22,"acum":50.35,"curva":"A"},{"Cliente":"LOTUS MCZ LTDA","total":5735.0,"pedidos":4,"pecas":74.0,"pct":0.22,"acum":50.57,"curva":"A"},{"Cliente":"Iasmyn Gomes","total":5620.0,"pedidos":3,"pecas":74.0,"pct":0.22,"acum":50.79,"curva":"A"},{"Cliente":"Tavares Barros Ltda","total":5600.0,"pedidos":2,"pecas":80.0,"pct":0.22,"acum":51.01,"curva":"A"},{"Cliente":"LEANDRO & RODRIGUES CONFECCOES LTDA","total":5482.0,"pedidos":1,"pecas":45.0,"pct":0.21,"acum":51.22,"curva":"A"},{"Cliente":"63.700.925 ELIZETE MELO DE FREITAS","total":5417.0,"pedidos":7,"pecas":79.0,"pct":0.21,"acum":51.43,"curva":"A"},{"Cliente":"ALEXANDRA DOS SANTOS VIDINHA 61669373347","total":5409.0,"pedidos":5,"pecas":83.0,"pct":0.21,"acum":51.64,"curva":"A"},{"Cliente":"Maria Lucelia Soares dos Santos","total":5377.0,"pedidos":7,"pecas":69.0,"pct":0.21,"acum":51.85,"curva":"A"},{"Cliente":"BOSSA MODA FEMININA LTDA","total":5349.0,"pedidos":4,"pecas":39.0,"pct":0.21,"acum":52.06,"curva":"A"},{"Cliente":"Manuele Cunha dos Santos Fraga Souza","total":5253.0,"pedidos":4,"pecas":55.0,"pct":0.2,"acum":52.26,"curva":"A"},{"Cliente":"LUA CALCADOS E CONFECCOES LTDA","total":5240.0,"pedidos":4,"pecas":38.0,"pct":0.2,"acum":52.46,"curva":"A"},{"Cliente":"Clesia Santos","total":5230.0,"pedidos":4,"pecas":30.0,"pct":0.2,"acum":52.66,"curva":"A"},{"Cliente":"Kaio Luan de Oliveira Soares","total":5220.0,"pedidos":3,"pecas":65.0,"pct":0.2,"acum":52.86,"curva":"A"},{"Cliente":"Thalia Tainara Viana Gomes","total":5193.0,"pedidos":4,"pecas":79.0,"pct":0.2,"acum":53.06,"curva":"A"},{"Cliente":"Ranny Menezes","total":5185.0,"pedidos":8,"pecas":74.0,"pct":0.2,"acum":53.26,"curva":"A"}];
+
+/* Metas mensais (planilha Dashboard Geral) */
+const META  = {1:1000000,2:750000,3:1000000,4:900000,5:1000000,6:1000000,7:1000000,8:800000,9:800000,10:1000000,11:1200000,12:1500000};
+const Y25   = {1:573955,2:632417,3:402986,4:538893,5:685990,6:658547,7:683553,8:599143,9:584450,10:626158,11:798056,12:913224};
+const COMISSAO = {1:400,2:0,3:0,4:0};
+const META_ANUAL = 11950000;
+const MN = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+/* ===== ESTADO ===== */
+let flt='all', dfrom='2026-01-01', dto='2026-04-08', abcF='A';
+let cM, cG, cD;
+
+function toggleTheme(){
+  const d=document.body.getAttribute('data-theme')==='dark';
+  document.body.setAttribute('data-theme',d?'light':'dark');
+  document.getElementById('ti').textContent=d?'🌙':'☀️';
+  document.getElementById('tl').textContent=d?'Escuro':'Claro';
+  rebuildCharts();
+}
+const BM={all:'b-all',1:'b-1',2:'b-2',3:'b-3',4:'b-4',q1:'b-q1'};
+function sf(f){
+  flt=f;
+  Object.values(BM).forEach(id=>document.getElementById(id)?.classList.remove('on'));
+  if(BM[f]) document.getElementById(BM[f]).classList.add('on');
+  const R={all:['2026-01-01','2026-04-08'],q1:['2026-01-01','2026-03-31'],
+    1:['2026-01-01','2026-01-31'],2:['2026-02-01','2026-02-28'],
+    3:['2026-03-01','2026-03-31'],4:['2026-04-01','2026-04-08']};
+  if(R[f]){dfrom=R[f][0];dto=R[f][1]}
+  document.getElementById('df').value=dfrom;
+  document.getElementById('dt').value=dto;
+  render();
+}
+function dr(){
+  dfrom=document.getElementById('df').value;
+  dto=document.getElementById('dt').value;
+  Object.values(BM).forEach(id=>document.getElementById(id)?.classList.remove('on'));
+  flt='custom'; render();
+}
+function fmt(n){
+  const a=Math.abs(n);
+  if(a>=1000000) return (n<0?'-':'')+'R$'+(a/1000000).toFixed(1).replace('.',',')+'M';
+  if(a>=1000) return (n<0?'-':'')+'R$'+Math.round(a/1000)+'K';
+  return (n<0?'-':'')+'R$'+Math.round(a);
+}
+function fmtF(n){return 'R$'+Math.round(n).toLocaleString('pt-BR')}
+function pct(a,b){return b>0?((a-b)/b*100):0}
+function s(v){return v>=0?'+':''}
+function isDark(){return document.body.getAttribute('data-theme')==='dark'}
+function gc(){return isDark()?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)'}
+function tc(){return isDark()?'#8b949e':'#8a94a6'}
+function getMonths(from,to){
+  const f=new Date(from).getMonth()+1,t=new Date(to).getMonth()+1;
+  const out=[];for(let m=f;m<=t;m++) out.push(m);return out;
+}
+
+/* ===== FILTROS DE DADOS ===== */
+/* KPIs: usa DAILY_TOTAL (inclui Yara e Outros — total real do mês) */
+function filtTotal(){
+  return DAILY_TOTAL.filter(d=>d.DataStr>=dfrom && d.DataStr<=dto);
+}
+/* Sellers: usa DAILY_SELLER (só ativas) */
+function filtSeller(){
+  return DAILY_SELLER.filter(d=>d.DataStr>=dfrom && d.DataStr<=dto);
+}
+
+function render(){
+  /* KPIs usam o total completo */
+  const tot = filtTotal();
+  let total=0,ped=0,pec=0;
+  tot.forEach(d=>{total+=d.total;ped+=d.pedidos;pec+=d.pecas});
+
+  /* Sellers para cards individuais */
+  const selData = filtSeller();
+  const sellers={};
+  selData.forEach(d=>{
+    if(!sellers[d.Vendedor]) sellers[d.Vendedor]={v:0,p:0,pc:0};
+    sellers[d.Vendedor].v+=d.total;
+    sellers[d.Vendedor].p+=d.pedidos;
+    sellers[d.Vendedor].pc+=d.pecas;
+  });
+
+  const months=getMonths(dfrom,dto);
+  let meta_t=0,y25_t=0,comissao=0;
+  months.forEach(m=>{meta_t+=META[m]||0;y25_t+=Y25[m]||0;comissao+=COMISSAO[m]||0});
+
+  const crescPct=pct(total,y25_t);
+  const vsMeta=meta_t>0?pct(total,meta_t):null;
+  const tick=ped>0?total/ped:0;
+  const preco=pec>0?total/pec:0;
+
+  document.getElementById('k-r').textContent=fmt(total);
+  document.getElementById('k-c').textContent=s(crescPct)+crescPct.toFixed(0)+'%';
+  document.getElementById('k-t').textContent=fmt(tick);
+  document.getElementById('k-p').textContent=fmt(preco);
+  document.getElementById('k-ped').textContent=ped.toLocaleString('pt-BR');
+  document.getElementById('k-pec').textContent=Math.round(pec).toLocaleString('pt-BR');
+  document.getElementById('k-cli').textContent='873';
+  document.getElementById('k-com').textContent=fmtF(comissao);
+  document.getElementById('k-coms').textContent=comissao>0?'em comissões':'a distribuir';
+
+  const vmb=document.getElementById('k-vm');
+  if(vsMeta!==null){
+    vmb.className='bdg '+(vsMeta>=0?'bup':'bdn');
+    vmb.textContent=(vsMeta>=0?'▲ ':'▼ ')+Math.abs(vsMeta).toFixed(0)+'% vs meta';
+    document.getElementById('k-ms').textContent='Meta: '+fmtF(meta_t);
+  }else{vmb.className='bdg bnu';vmb.textContent='↗ Crescendo';document.getElementById('k-ms').textContent='';}
+  const cb=document.getElementById('k-cb');
+  cb.className='bdg '+(crescPct>=0?'bup':'bdn');
+  cb.textContent=crescPct>=0?'▲ Acima':'▼ Abaixo';
+  document.getElementById('k-cs').textContent='2025: '+fmtF(y25_t);
+
+  /* Ring YTD — total geral de todo o período disponível */
+  const ytd=DAILY_TOTAL.reduce((a,d)=>a+d.total,0);
+  const ytdPct=ytd/META_ANUAL*100;
+  document.getElementById('rp').textContent=ytdPct.toFixed(1)+'%';
+  document.getElementById('ri').innerHTML='<strong>'+fmt(ytd)+'</strong> de '+fmt(META_ANUAL);
+  document.getElementById('ring').style.strokeDashoffset=276.46-(276.46*Math.min(100,ytdPct)/100);
+
+  renderSellers(sellers);
+  renderQ();
+  rebuildCharts(sellers);
+  renderABC();
+}
+
+function renderSellers(sellers){
+  const ORDER=['Fabiana','Cibele','Aillany','Jannielly','Antônio'];
+  const maxV=Math.max(...ORDER.map(n=>sellers[n]?.v||0));
+  const mv1={Fabiana:{hit:true},Cibele:{hit:false},Aillany:{hit:false},Jannielly:{hit:false},'Antônio':{hit:false}};
+  const mv2={Fabiana:{hit:false},Cibele:{hit:false},Aillany:{hit:false},Jannielly:{hit:false},'Antônio':{hit:false}};
+  const MV={1:mv1,2:mv2,3:mv2,4:mv2};
+  const metaM=typeof flt==='number'&&flt>=1&&flt<=4?MV[flt]:null;
+  document.getElementById('sg').innerHTML=ORDER.map((name,i)=>{
+    const sl=sellers[name]||{v:0,p:0,pc:0};
+    const bp=maxV>0?Math.round(sl.v/maxV*100):0;
+    const mv=metaM?.[name];
+    return `<div class="card sc s${i}">
+      ${mv?`<span class="mtag ${mv.hit?'mthit':'mtmiss'}">${mv.hit?'✓ META':'× META'}</span>`:''}`+
+      `<div class="sn">${name}</div>
+      <div class="sv">${fmt(sl.v)}</div>
+      <div class="sbt"><div class="sbf" style="width:${bp}%"></div></div>
+      <div class="ss">
+        <div class="sti">Pedidos: <span>${sl.p}</span></div>
+        <div class="sti">Peças: <span>${Math.round(sl.pc).toLocaleString()}</span></div>
+        <div class="sti">Ticket: <span>${fmt(sl.p>0?sl.v/sl.p:0)}</span></div>
+      </div></div>`;
+  }).join('');
+}
+
+function renderQ(){
+  /* Usa DAILY_TOTAL para trimestral */
+  function mSum(m){return DAILY_TOTAL.filter(d=>parseInt(d.DataStr.slice(5,7))===m).reduce((a,d)=>a+d.total,0)}
+  const [r1,r2,r3,r4]=[1,2,3,4].map(mSum);
+  const q1r=r1+r2+r3,q1m=META[1]+META[2]+META[3],q1_25=Y25[1]+Y25[2]+Y25[3];
+  const ytd=r1+r2+r3+r4;
+  const best=[{m:'Jan',v:r1},{m:'Fev',v:r2},{m:'Mar',v:r3},{m:'Abr',v:r4}].reduce((b,x)=>x.v>b.v?x:b);
+  document.getElementById('qg').innerHTML=`
+    <div class="qi"><div class="ql">T1 Realizado</div><div class="qv" style="color:var(--green)">${fmt(q1r)}</div><div class="qc" style="color:var(--green)">▲ ${pct(q1r,q1_25).toFixed(1)}% vs 2025</div></div>
+    <div class="qi"><div class="ql">Meta T1</div><div class="qv" style="color:var(--gold)">${fmt(q1m)}</div><div class="qc" style="color:${q1r>=q1m?'var(--green)':'var(--red)'}">${q1r>=q1m?'✓ Atingida':'Gap: '+fmt(q1m-q1r)}</div></div>
+    <div class="qi"><div class="ql">T1 2025</div><div class="qv" style="color:var(--text2)">${fmt(q1_25)}</div><div class="qc" style="color:var(--text3)">referência</div></div>
+    <div class="qi"><div class="ql">Melhor Mês</div><div class="qv" style="color:var(--gold)">${best.m}</div><div class="qc" style="color:var(--gold)">${fmt(best.v)}</div></div>
+    <div class="qi"><div class="ql">Abr Parcial</div><div class="qv" style="color:var(--blue)">${fmt(r4)}</div><div class="qc" style="color:var(--text3)">até dia 8</div></div>
+    <div class="qi"><div class="ql">Total YTD</div><div class="qv" style="color:var(--green)">${fmt(ytd)}</div><div class="qc" style="color:var(--text3)">jan–abr 2026</div></div>`;
+}
+
+function rebuildCharts(sellers){
+  const g=gc(),t=tc();
+  function mSum(m){return DAILY_TOTAL.filter(d=>parseInt(d.DataStr.slice(5,7))===m).reduce((a,d)=>a+d.total,0)}
+  const r26=[1,2,3,4].map(mSum);
+  const r25=[1,2,3,4].map(m=>Y25[m]);
+  const metaV=[1,2,3,4].map(m=>META[m]);
+  const labels=MN.slice(0,4);
+  if(cM) cM.destroy();
+  cM=new Chart(document.getElementById('chM').getContext('2d'),{
+    type:'bar',data:{labels,datasets:[
+      {label:'2026',data:r26,backgroundColor:'rgba(0,200,150,0.85)',borderRadius:7,borderSkipped:false,order:1},
+      {label:'Meta',data:metaV,type:'line',borderColor:'rgba(240,165,0,.9)',borderWidth:2,pointBackgroundColor:'rgba(240,165,0,.9)',pointRadius:4,fill:false,tension:.3,order:0},
+      {label:'2025',data:r25,backgroundColor:'rgba(124,58,237,0.35)',borderRadius:7,borderSkipped:false,order:2},
+    ]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${fmtF(c.raw)}`}}},
+      scales:{x:{grid:{color:g},ticks:{color:t,font:{family:'Figtree',size:11}}},y:{grid:{color:g},ticks:{color:t,font:{family:'Figtree',size:10},callback:v=>fmt(v)}}}}
+  });
+  if(cG) cG.destroy();
+  const gd=r26.map((v,i)=>v>0?+pct(v,r25[i]).toFixed(1):null);
+  cG=new Chart(document.getElementById('chG').getContext('2d'),{
+    type:'bar',data:{labels,datasets:[{label:'%',data:gd,
+      backgroundColor:gd.map(v=>v===null?'transparent':v>=0?'rgba(0,200,150,0.8)':'rgba(239,68,68,0.7)'),
+      borderRadius:7,borderSkipped:false}]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw!==null?` ${c.raw}%`:' sem dados'}}},
+      scales:{x:{grid:{color:g},ticks:{color:t,font:{family:'Figtree',size:11}}},y:{grid:{color:g},ticks:{color:t,font:{family:'Figtree',size:10},callback:v=>v+'%'}}}}
+  });
+  if(!sellers) return;
+  if(cD) cD.destroy();
+  const ORD=['Fabiana','Cibele','Aillany','Jannielly','Antônio'];
+  const COL=['#00c896','#3b82f6','#f0a500','#7c3aed','#0ea5e9'];
+  cD=new Chart(document.getElementById('chD').getContext('2d'),{
+    type:'doughnut',data:{labels:ORD,datasets:[{data:ORD.map(n=>sellers[n]?.v||0),backgroundColor:COL,borderWidth:0,hoverOffset:10}]},
+    options:{responsive:true,cutout:'62%',plugins:{
+      legend:{position:'right',labels:{color:t,font:{family:'Figtree',size:11},padding:14,
+        generateLabels:c=>{const ds=c.data.datasets[0];return c.data.labels.map((l,i)=>({'text':`${l}  ${fmt(ds.data[i])}`,fillStyle:ds.backgroundColor[i],strokeStyle:'transparent',lineWidth:0,index:i}))}}},
+      tooltip:{callbacks:{label:c=>` ${fmtF(c.raw)}`}}}}
+  });
+}
+
+function renderABC(){
+  const counts={A:CLIENTS.filter(c=>c.curva==='A').length,B:CLIENTS.filter(c=>c.curva==='B').length,C:CLIENTS.filter(c=>c.curva==='C').length};
+  document.getElementById('atabs').innerHTML=['A','B','C'].map(c=>`<div class="at ${c} ${c===abcF?'on':''}" onclick="setABC('${c}')">${c} — ${counts[c]} clientes</div>`).join('');
+  const fl=CLIENTS.filter(c=>c.curva===abcF);
+  document.getElementById('alb').textContent=`Curva ${abcF} — ${fl.length} clientes`;
+  document.getElementById('abody').innerHTML=fl.slice(0,25).map((c,i)=>`
+    <tr><td style="color:var(--text3);font-weight:600">${i+1}</td>
+    <td style="font-weight:500;max-width:155px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${c.Cliente}">${c.Cliente}</td>
+    <td style="font-weight:700;color:var(--green)">${fmtF(c.total)}</td>
+    <td>${c.pedidos}</td><td style="color:var(--text3)">${c.pct}%</td>
+    <td><span class="cv cv${c.curva}">${c.curva}</span></td></tr>`).join('');
+}
+function setABC(c){abcF=c;renderABC()}
+
+const now=new Date();
+document.getElementById('ts').textContent='Atualizado '+now.toLocaleDateString('pt-BR')+', '+now.toLocaleTimeString('pt-BR').slice(0,5);
+render();
+</script>
+</body>
+</html>
