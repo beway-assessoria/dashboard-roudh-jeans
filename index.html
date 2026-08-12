@@ -266,8 +266,12 @@ body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
 
-  <!-- METAS BRONZE / PRATA / OURO — AGOSTO 2026 -->
-  <div class="stitle"><span>🏆</span> Metas Individuais — Bronze / Prata / Ouro <span style="font-size:10px;color:var(--text3);font-weight:400">(vigência: Agosto/2026)</span></div>
+  <!-- METAS BRONZE / PRATA / OURO -->
+  <div class="stitle"><span>🏆</span> Metas Individuais — Bronze / Prata / Ouro</div>
+  <div class="tab-row" style="margin-bottom:10px">
+    <div class="tab on" id="bpo-tab-jul" onclick="setBpoTab(7)">Julho 2026 — Resultado</div>
+    <div class="tab" id="bpo-tab-ago" onclick="setBpoTab(8)">Agosto 2026 — Meta</div>
+  </div>
   <div class="sg6" id="bpo-grid" style="grid-template-columns:repeat(3,1fr)"></div>
 
   <!-- CANAL -->  <!-- CANAL -->
@@ -389,10 +393,10 @@ const PRODUCTS = [{"Prod":"Calça Wide Leg Gigi - Ozzo Jeans","total":53955.0,"q
 const CANAL_DATA = [{"DataStr":"2026-05-01","Canal":"Loja","total":10781.2,"pedidos":36,"pecas":140.0},{"DataStr":"2026-05-01","Canal":"Online","total":2215.0,"pedidos":3,"pecas":27.0},{"DataStr":"2026-05-04","Canal":"Online","total":334.0,"pedidos":1,"pecas":3.0},{"DataStr":"2026-05-05","Canal":"Online","total":60705.0,"pedidos":48,"pecas":587.0},{"DataStr":"2026-05-06","Canal":"Online","total":75517.0,"pedidos":55,"pecas":702.0},{"DataStr":"2026-05-07","Canal":"Loja","total":8744.0,"pedidos":22,"pecas":111.0},{"DataStr":"2026-05-07","Canal":"Online","total":39432.0,"pedidos":31,"pecas":294.0},{"DataStr":"2026-05-08","Canal":"Loja","total":3709.0,"pedidos":19,"pecas":46.0},{"DataStr":"2026-05-08","Canal":"Online","total":17639.0,"pedidos":5,"pecas":68.0},{"DataStr":"2026-05-09","Canal":"Loja","total":164.0,"pedidos":1,"pecas":2.0},{"DataStr":"2026-05-11","Canal":"Loja","total":2076.0,"pedidos":1,"pecas":24.0},{"DataStr":"2026-05-11","Canal":"Online","total":1349.0,"pedidos":5,"pecas":16.0},{"DataStr":"2026-05-12","Canal":"Online","total":160096.0,"pedidos":95,"pecas":1266.0},{"DataStr":"2026-05-13","Canal":"Online","total":81491.0,"pedidos":59,"pecas":802.0},{"DataStr":"2026-05-14","Canal":"Loja","total":13894.0,"pedidos":29,"pecas":149.0},{"DataStr":"2026-05-14","Canal":"Online","total":52716.0,"pedidos":47,"pecas":561.0},{"DataStr":"2026-05-15","Canal":"Loja","total":6700.0,"pedidos":24,"pecas":81.0},{"DataStr":"2026-05-15","Canal":"Online","total":3245.0,"pedidos":5,"pecas":25.0},{"DataStr":"2026-05-18","Canal":"Online","total":6733.0,"pedidos":20,"pecas":55.0},{"DataStr":"2026-05-19","Canal":"Online","total":84202.0,"pedidos":39,"pecas":394.0},{"DataStr":"2026-05-20","Canal":"Online","total":103024.0,"pedidos":64,"pecas":978.0},{"DataStr":"2026-05-21","Canal":"Loja","total":21148.0,"pedidos":42,"pecas":275.0},{"DataStr":"2026-05-21","Canal":"Online","total":86650.0,"pedidos":49,"pecas":561.0},{"DataStr":"2026-05-22","Canal":"Loja","total":12058.0,"pedidos":31,"pecas":159.0},{"DataStr":"2026-05-22","Canal":"Online","total":6837.0,"pedidos":12,"pecas":89.0},{"DataStr":"2026-05-25","Canal":"Online","total":850.0,"pedidos":2,"pecas":10.0},{"DataStr":"2026-05-26","Canal":"Loja","total":90.0,"pedidos":1,"pecas":1.0},{"DataStr":"2026-05-26","Canal":"Online","total":65125.0,"pedidos":50,"pecas":611.0},{"DataStr":"2026-05-27","Canal":"Loja","total":656.0,"pedidos":2,"pecas":8.0},{"DataStr":"2026-05-27","Canal":"Online","total":70528.0,"pedidos":61,"pecas":700.0},{"DataStr":"2026-05-28","Canal":"Loja","total":10567.0,"pedidos":32,"pecas":131.0},{"DataStr":"2026-05-28","Canal":"Online","total":42979.0,"pedidos":34,"pecas":304.0},{"DataStr":"2026-05-29","Canal":"Loja","total":12160.0,"pedidos":34,"pecas":142.0},{"DataStr":"2026-05-29","Canal":"Online","total":26517.0,"pedidos":9,"pecas":105.0},{"DataStr":"2026-06-01","Canal":"Online","total":439.0,"pedidos":8,"pecas":-1.0},{"DataStr":"2026-06-02","Canal":"Online","total":112536.0,"pedidos":59,"pecas":921.0},{"DataStr":"2026-06-03","Canal":"Online","total":116550.0,"pedidos":82,"pecas":1009.0},{"DataStr":"2026-06-04","Canal":"Loja","total":22073.0,"pedidos":38,"pecas":267.0},{"DataStr":"2026-06-04","Canal":"Online","total":87043.0,"pedidos":51,"pecas":582.0},{"DataStr":"2026-06-05","Canal":"Loja","total":15019.0,"pedidos":36,"pecas":186.0},{"DataStr":"2026-06-05","Canal":"Online","total":3392.0,"pedidos":5,"pecas":28.0},{"DataStr":"2026-06-08","Canal":"Online","total":8323.0,"pedidos":15,"pecas":87.0},{"DataStr":"2026-06-09","Canal":"Online","total":129392.0,"pedidos":71,"pecas":955.0},{"DataStr":"2026-06-10","Canal":"Online","total":104223.0,"pedidos":79,"pecas":914.0},{"DataStr":"2026-06-11","Canal":"Loja","total":17685.0,"pedidos":1,"pecas":37.0},{"DataStr":"2026-06-11","Canal":"Online","total":57821.0,"pedidos":50,"pecas":542.0},{"DataStr":"2026-06-12","Canal":"Loja","total":376.0,"pedidos":2,"pecas":6.0},{"DataStr":"2026-06-12","Canal":"Online","total":5716.0,"pedidos":6,"pecas":62.0},{"DataStr":"2026-06-15","Canal":"Online","total":2983.0,"pedidos":11,"pecas":42.0},{"DataStr":"2026-06-16","Canal":"Online","total":238096.0,"pedidos":110,"pecas":1963.0},{"DataStr":"2026-06-17","Canal":"Online","total":63623.0,"pedidos":65,"pecas":793.0},{"DataStr":"2026-06-18","Canal":"Loja","total":1595.0,"pedidos":4,"pecas":19.0},{"DataStr":"2026-06-18","Canal":"Online","total":25198.0,"pedidos":27,"pecas":322.0},{"DataStr":"2026-06-19","Canal":"Loja","total":627.0,"pedidos":6,"pecas":7.0},{"DataStr":"2026-06-19","Canal":"Online","total":5517.0,"pedidos":8,"pecas":47.0},{"DataStr":"2026-06-20","Canal":"Loja","total":1861.0,"pedidos":1,"pecas":21.0},{"DataStr":"2026-06-22","Canal":"Online","total":21234.0,"pedidos":14,"pecas":119.0},{"DataStr":"2026-06-23","Canal":"Online","total":98454.0,"pedidos":69,"pecas":726.0},{"DataStr":"2026-06-24","Canal":"Online","total":27176.0,"pedidos":33,"pecas":305.0},{"DataStr":"2026-06-25","Canal":"Loja","total":420.0,"pedidos":2,"pecas":5.0},{"DataStr":"2026-06-25","Canal":"Online","total":41704.0,"pedidos":46,"pecas":428.0},{"DataStr":"2026-06-26","Canal":"Loja","total":2096.0,"pedidos":9,"pecas":29.0},{"DataStr":"2026-06-26","Canal":"Online","total":2874.0,"pedidos":5,"pecas":41.0},{"DataStr":"2026-06-29","Canal":"Online","total":2939.0,"pedidos":9,"pecas":30.0},{"DataStr":"2026-06-30","Canal":"Online","total":33447.0,"pedidos":34,"pecas":423.0},{"DataStr":"2026-07-01","Canal":"Online","total":52460.0,"pedidos":44,"pecas":643},{"DataStr":"2026-07-02","Canal":"Loja","total":2416.0,"pedidos":5,"pecas":34},{"DataStr":"2026-07-02","Canal":"Online","total":66030.0,"pedidos":64,"pecas":756},{"DataStr":"2026-07-03","Canal":"Loja","total":2072.0,"pedidos":5,"pecas":30},{"DataStr":"2026-07-03","Canal":"Online","total":8948.0,"pedidos":12,"pecas":105},{"DataStr":"2026-07-06","Canal":"Online","total":3116.0,"pedidos":12,"pecas":110},{"DataStr":"2026-07-07","Canal":"Online","total":85781.0,"pedidos":53,"pecas":757},{"DataStr":"2026-07-08","Canal":"Online","total":97926.0,"pedidos":65,"pecas":1039},{"DataStr":"2026-07-09","Canal":"Loja","total":1038.0,"pedidos":3,"pecas":14},{"DataStr":"2026-07-09","Canal":"Online","total":55758.0,"pedidos":49,"pecas":684},{"DataStr":"2026-07-10","Canal":"Loja","total":1419.0,"pedidos":4,"pecas":17},{"DataStr":"2026-07-10","Canal":"Online","total":15518.0,"pedidos":10,"pecas":142},{"DataStr":"2026-07-13","Canal":"Online","total":6547.0,"pedidos":10,"pecas":80},{"DataStr":"2026-07-14","Canal":"Online","total":106629.0,"pedidos":71,"pecas":1089},{"DataStr":"2026-07-15","Canal":"Online","total":65210.0,"pedidos":54,"pecas":696},{"DataStr":"2026-07-16","Canal":"Loja","total":4006.0,"pedidos":9,"pecas":55},{"DataStr":"2026-07-16","Canal":"Online","total":41941.0,"pedidos":43,"pecas":498},{"DataStr":"2026-07-17","Canal":"Loja","total":325.0,"pedidos":1,"pecas":5},{"DataStr":"2026-07-17","Canal":"Online","total":2951.0,"pedidos":6,"pecas":34},{"DataStr":"2026-07-20","Canal":"Loja","total":152.0,"pedidos":1,"pecas":2},{"DataStr":"2026-07-20","Canal":"Online","total":5594.0,"pedidos":17,"pecas":69},{"DataStr":"2026-07-21","Canal":"Online","total":26653.0,"pedidos":25,"pecas":230},{"DataStr":"2026-07-22","Canal":"Online","total":8452.0,"pedidos":10,"pecas":80},{"DataStr":"2026-07-23","Canal":"Online","total":6931.0,"pedidos":10,"pecas":90},{"DataStr":"2026-07-24","Canal":"Loja","total":663.0,"pedidos":4,"pecas":8},{"DataStr":"2026-07-24","Canal":"Online","total":60466.0,"pedidos":30,"pecas":617},{"DataStr":"2026-07-27","Canal":"Online","total":84736.0,"pedidos":43,"pecas":894},{"DataStr":"2026-07-28","Canal":"Online","total":89621.0,"pedidos":52,"pecas":850},{"DataStr":"2026-07-29","Canal":"Online","total":54358.0,"pedidos":41,"pecas":611},{"DataStr":"2026-07-30","Canal":"Online","total":67621.0,"pedidos":19,"pecas":168},{"DataStr":"2026-07-31","Canal":"Loja","total":748.0,"pedidos":4,"pecas":11},{"DataStr":"2026-07-31","Canal":"Online","total":505.0,"pedidos":1,"pecas":8}];
 
 /* Metas e comparativos (planilha confirmada) */
-const META = {1:1000000,2:750000,3:1000000,4:1299000,5:1000000,6:1350000,7:1200000,7:1000000,8:800000,9:800000,10:1000000,11:1200000,12:1500000};
+const META = {1:1000000,2:750000,3:1000000,4:1299000,5:1350000,6:1350000,7:1200000,8:1000000,9:900000,10:1300000,11:1400000,12:1500000};
 const Y25  = {1:573955,2:632417,3:402986,4:538893,5:685990,6:658547,7:683553,8:599143,9:584450,10:626158,11:798056,12:913224};
-const COMISSAO = {1:400,2:0,3:0,4:0,5:0,6:1800,7:0};
-const META_ANUAL = 12349000;
+const COMISSAO = {1:400,2:0,3:0,4:0,5:0,6:1800,7:400};
+const META_ANUAL = 14049000;
 const MN = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 
 /* ===== ESTADO ===== */
@@ -553,38 +557,55 @@ function renderMetasJun(){
   renderBPO();
 }
 
-/* ===== METAS BRONZE / PRATA / OURO — AGOSTO 2026 ===== */
-const BPO_METAS = {
-  Cibele:  {bronze:446528, prata:595371, ouro:714445, cor:'#00c896'},
-  Aillany: {bronze:342285, prata:456380, ouro:547656, cor:'#3b82f6'},
-  Gislany: {bronze:336186, prata:448249, ouro:537898, cor:'#f0a500'},
+/* ===== METAS BRONZE / PRATA / OURO — VALORES OFICIAIS ===== */
+/* Faixas iguais para todas as vendedoras (não individualizadas por vendedora) */
+const BPO_TIERS = {
+  7: {bronze:300000,    prata:333333.33, ouro:400000,    label:'Julho 2026'},
+  8: {bronze:233333.33, prata:266666.67, ouro:333333.33, label:'Agosto 2026'},
 };
+const BPO_SELLERS = {
+  Cibele:  {cor:'#00c896'},
+  Aillany: {cor:'#3b82f6'},
+  Gislany: {cor:'#f0a500'},
+};
+let bpoMonth = 7;
+function setBpoTab(m){
+  bpoMonth = m;
+  document.getElementById('bpo-tab-jul').classList.toggle('on', m===7);
+  document.getElementById('bpo-tab-ago').classList.toggle('on', m===8);
+  renderBPO();
+}
 function renderBPO(){
-  // Usa o total do mes filtrado para cada vendedora (funciona bem quando o filtro é 1 mês)
-  const sel = DAILY_SELLER.filter(d=>d.DataStr>=dfrom&&d.DataStr<=dto);
+  const t = BPO_TIERS[bpoMonth];
+  const from = bpoMonth===7 ? '2026-07-01' : '2026-08-01';
+  const to   = bpoMonth===7 ? '2026-07-31' : '2026-08-31';
+  const sel = DAILY_SELLER.filter(d=>d.DataStr>=from&&d.DataStr<=to);
   const agg={};
   sel.forEach(d=>{agg[d.Vendedor]=(agg[d.Vendedor]||0)+d.total});
-  document.getElementById('bpo-grid').innerHTML = Object.entries(BPO_METAS).map(([name,m])=>{
+  const hasData = Object.keys(agg).length>0;
+
+  document.getElementById('bpo-grid').innerHTML = Object.entries(BPO_SELLERS).map(([name,s])=>{
     const val = agg[name]||0;
-    let tier='—', tierColor='var(--text3)', next=m.bronze, nextLabel='Bronze';
-    if(val>=m.ouro){tier='🥇 OURO';tierColor='#f0a500';next=null;}
-    else if(val>=m.prata){tier='🥈 PRATA';tierColor='#94a3b8';next=m.ouro;nextLabel='Ouro';}
-    else if(val>=m.bronze){tier='🥉 BRONZE';tierColor='#b45309';next=m.prata;nextLabel='Prata';}
-    else {next=m.bronze;nextLabel='Bronze';}
+    let tier='—', tierColor='var(--text3)', next=t.bronze, nextLabel='Bronze';
+    if(val>=t.ouro){tier='🥇 OURO';tierColor='#f0a500';next=null;}
+    else if(val>=t.prata){tier='🥈 PRATA';tierColor='#94a3b8';next=t.ouro;nextLabel='Ouro';}
+    else if(val>=t.bronze){tier='🥉 BRONZE';tierColor='#b45309';next=t.prata;nextLabel='Prata';}
+    else {next=t.bronze;nextLabel='Bronze';}
     const gap = next!==null ? next-val : 0;
-    const maxScale = m.ouro;
-    const pct = Math.min(100, val/maxScale*100);
-    return `<div class="card sc" style="border-top:2.5px solid ${m.cor}">
+    const pct = Math.min(100, val/t.ouro*100);
+    return `<div class="card sc" style="border-top:2.5px solid ${s.cor}">
       <div class="sn">${name}</div>
-      <div class="sv" style="color:${m.cor}">${fmt(val)}</div>
-      <div style="font-size:11px;font-weight:800;color:${tierColor};margin:4px 0 8px;font-family:'Montserrat',sans-serif">${tier}</div>
-      <div class="sbt"><div class="sbf" style="width:${pct}%;background:${m.cor}"></div></div>
+      <div class="sv" style="color:${s.cor}">${hasData?fmt(val):'—'}</div>
+      <div style="font-size:11px;font-weight:800;color:${tierColor};margin:4px 0 8px;font-family:'Montserrat',sans-serif">${hasData?tier:'Aguardando dados'}</div>
+      <div class="sbt"><div class="sbf" style="width:${hasData?pct:0}%;background:${s.cor}"></div></div>
       <div class="ss" style="margin-top:8px">
-        <div class="sti">Bronze: <span>${fmt(m.bronze)}</span></div>
-        <div class="sti">Prata: <span>${fmt(m.prata)}</span></div>
-        <div class="sti">Ouro: <span>${fmt(m.ouro)}</span></div>
+        <div class="sti">Bronze: <span>${fmt(t.bronze)}</span></div>
+        <div class="sti">Prata: <span>${fmt(t.prata)}</span></div>
+        <div class="sti">Ouro: <span>${fmt(t.ouro)}</span></div>
       </div>
-      ${next!==null?`<div style="font-size:10px;color:var(--text3);margin-top:8px">Faltam <b style="color:${m.cor}">${fmt(gap)}</b> para ${nextLabel}</div>`:`<div style="font-size:10px;color:${m.cor};margin-top:8px;font-weight:700">🎉 Meta máxima atingida!</div>`}
+      ${!hasData?`<div style="font-size:10px;color:var(--text3);margin-top:8px">Dados de ${t.label} ainda não enviados</div>`
+        :next!==null?`<div style="font-size:10px;color:var(--text3);margin-top:8px">Faltam <b style="color:${s.cor}">${fmt(gap)}</b> para ${nextLabel}</div>`
+        :`<div style="font-size:10px;color:${s.cor};margin-top:8px;font-weight:700">🎉 Ouro atingido!</div>`}
     </div>`;
   }).join('');
 }
@@ -655,7 +676,7 @@ function renderSellers(sellers){
     4:{Fabiana:{hit:false},Cibele:{hit:false},Aillany:{hit:false},Jannielly:{hit:false},'Antônio':{hit:false}},
     5:{Fabiana:{hit:false},Cibele:{hit:false},Aillany:{hit:false},Gislany:{hit:false},Jannielly:{hit:false},'Antônio':{hit:false}},
     6:{Cibele:{hit:true},Aillany:{hit:true},Gislany:{hit:true},Jannielly:{hit:false},'Antônio':{hit:false}},
-    7:{Cibele:{hit:false},Aillany:{hit:false},Gislany:{hit:false},Jannielly:{hit:false},'Antônio':{hit:false}},
+    7:{Cibele:{hit:true},Aillany:{hit:false},Gislany:{hit:false},Jannielly:{hit:false},'Antônio':{hit:false}},
   };
   const mM=typeof flt==='number'&&flt>=1&&flt<=7?META_VEND[flt]:null;
   const totGeral=Object.values(sellers).reduce((a,s)=>a+s.v,0);
