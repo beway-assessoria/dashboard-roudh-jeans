@@ -571,7 +571,7 @@ function renderMetasJun(){
 const BPO_TIERS = {
   7: {bronze:300000,    prata:333333.33, ouro:400000,    label:'Julho 2026'},
   8: {bronze:233333.33, prata:266666.67, ouro:333333.33, label:'Agosto 2026'},
-  9: {bronze:233333.33, prata:266666.67, ouro:333333.33, label:'Setembro 2026 (mesma faixa de Ago — ajustar quando confirmado)'},
+  9: {bronze:300000, prata:333333.33, ouro:400000, super:466666.67, label:'Setembro 2026'},
 };
 const BPO_SELLERS = {
   Cibele:  {cor:'#00c896'},
@@ -597,13 +597,16 @@ function renderBPO(){
 
   document.getElementById('bpo-grid').innerHTML = Object.entries(BPO_SELLERS).map(([name,s])=>{
     const val = agg[name]||0;
+    const hasSuper = t.super !== undefined;
     let tier='—', tierColor='var(--text3)', next=t.bronze, nextLabel='Bronze';
-    if(val>=t.ouro){tier='🥇 OURO';tierColor='#f0a500';next=null;}
+    if(hasSuper && val>=t.super){tier='💎 SUPER META';tierColor='#7c3aed';next=null;}
+    else if(val>=t.ouro){tier='🥇 OURO';tierColor='#f0a500';next=hasSuper?t.super:null;nextLabel='Super Meta';}
     else if(val>=t.prata){tier='🥈 PRATA';tierColor='#94a3b8';next=t.ouro;nextLabel='Ouro';}
     else if(val>=t.bronze){tier='🥉 BRONZE';tierColor='#b45309';next=t.prata;nextLabel='Prata';}
     else {next=t.bronze;nextLabel='Bronze';}
     const gap = next!==null ? next-val : 0;
-    const pct = Math.min(100, val/t.ouro*100);
+    const scaleTop = hasSuper ? t.super : t.ouro;
+    const pct = Math.min(100, val/scaleTop*100);
     return `<div class="card sc" style="border-top:2.5px solid ${s.cor}">
       <div class="sn">${name}</div>
       <div class="sv" style="color:${s.cor}">${hasData?fmt(val):'—'}</div>
@@ -613,10 +616,11 @@ function renderBPO(){
         <div class="sti">Bronze: <span>${fmt(t.bronze)}</span></div>
         <div class="sti">Prata: <span>${fmt(t.prata)}</span></div>
         <div class="sti">Ouro: <span>${fmt(t.ouro)}</span></div>
+        ${hasSuper?`<div class="sti">Super: <span>${fmt(t.super)}</span></div>`:''}
       </div>
       ${!hasData?`<div style="font-size:10px;color:var(--text3);margin-top:8px">Dados de ${t.label} ainda não enviados</div>`
         :next!==null?`<div style="font-size:10px;color:var(--text3);margin-top:8px">Faltam <b style="color:${s.cor}">${fmt(gap)}</b> para ${nextLabel}</div>`
-        :`<div style="font-size:10px;color:${s.cor};margin-top:8px;font-weight:700">🎉 Ouro atingido!</div>`}
+        :`<div style="font-size:10px;color:${s.cor};margin-top:8px;font-weight:700">🎉 Meta máxima atingida!</div>`}
     </div>`;
   }).join('');
 }
