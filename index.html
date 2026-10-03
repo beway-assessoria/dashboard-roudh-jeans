@@ -6,7 +6,7 @@
 <title>Roudh Jeans — Dashboard Comercial 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>(function(){var d=document.documentElement,rm=false;try{rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
-if(rm)return;d.classList.add('motion');try{if(!sessionStorage.getItem('rj_intro_v1')){d.classList.add('intro-on');sessionStorage.setItem('rj_intro_v1','1')}}catch(e){}})();</script>
+if(rm)return;d.classList.add('motion','intro-on');})();</script>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -317,11 +317,17 @@ html:not(.motion) .rbtn{display:none}
 .cu{font-variant-numeric:tabular-nums}
 @media(max-width:700px){.rbtn span:last-child{display:none}.hero-pl{font-size:9.5px}}
 
+.in-skip{right:50%;bottom:7vh;transform:translateX(50%);padding:11px 26px;font-size:13px;opacity:0}
+#intro.play .in-skip{animation:fadeUpC .6s ease 2.9s forwards,btnGlow 2.4s ease-in-out 3.6s infinite}
+@keyframes fadeUpC{from{opacity:0;transform:translate(50%,14px)}to{opacity:1;transform:translate(50%,0)}}
+@keyframes btnGlow{0%,100%{box-shadow:0 0 0 0 rgba(0,229,168,.5)}50%{box-shadow:0 0 0 12px rgba(0,229,168,0)}}
+#intro{cursor:pointer}
+
 </style>
 </head>
 <body data-theme="light">
 <div class="amb"><i></i><i></i></div>
-<div id="intro" aria-hidden="true">
+<div id="intro" onclick="skipIntro()">
   <div class="in-bg"><i></i><i></i><i></i></div>
   <div class="in-box">
     <div class="in-logo"><svg viewBox="0 0 112 112"><circle class="in-r0" cx="56" cy="56" r="54"/><circle class="in-r1" cx="56" cy="56" r="54"/></svg><span>RJ</span></div>
@@ -329,9 +335,9 @@ html:not(.motion) .rbtn{display:none}
     <div class="in-sub">DASHBOARD COMERCIAL 2026</div>
     <div class="in-lbl">SETEMBRO/2026 · FECHAMENTO DO MÊS</div>
     <div class="in-num" id="in-num">R$ 0</div>
-    <div class="in-tag">135% da meta · 2º melhor mês do ano</div>
+    <div class="in-tag">Meta Ouro batida · 2º melhor mês do ano</div>
   </div>
-  <button class="in-skip" onclick="skipIntro()">Pular ›</button>
+  <button class="in-skip" onclick="skipIntro()">Entrar no dashboard ›</button>
 </div>
 <header class="hd">
   <div class="brand">
@@ -371,7 +377,7 @@ html:not(.motion) .rbtn{display:none}
 <div class="main">
 
   <div style="background:linear-gradient(90deg,rgba(240,165,0,.12),rgba(240,165,0,.04));border:1px solid rgba(240,165,0,.35);border-radius:10px;padding:10px 16px;margin-bottom:14px;font-size:12px;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:8px">
-    <span>✅ Agosto e Setembro/2026 <b>fechados</b>. Setembro fechou com <b>R$ 1.213.680</b> — <b>135% da meta</b> e o 2º melhor mês do ano.</span>
+    <span>✅ Agosto e Setembro/2026 <b>fechados</b>. Setembro fechou com <b>R$ 1.213.680</b> — meta <b>Bronze (R$ 900 mil)</b> batida em <b>24/09</b> e meta <b>Ouro (R$ 1,2 mi)</b> batida em <b>30/09</b>. 2º melhor mês do ano.</span>
   </div>
 
   <!-- PAINEL SETEMBRO -->
@@ -391,7 +397,7 @@ html:not(.motion) .rbtn{display:none}
         <circle class="arc" id="ring1" cx="110" cy="110" r="94" stroke="#00e5a8" stroke-dasharray="590.62" stroke-dashoffset="590.62"/>
         <circle class="arc" id="ring2" cx="110" cy="110" r="74" stroke="#ffd27a" stroke-dasharray="464.96" stroke-dashoffset="464.96"/>
       </svg>
-      <div class="hero-rc"><div class="hero-pct" id="hero-pct">0,0%</div><div class="hero-pl">da meta de <b id="hero-meta"></b><br>dourado = acima da meta</div></div>
+      <div class="hero-rc"><div class="hero-pct" id="hero-pct">0,0%</div><div class="hero-pl">da meta Ouro de <b id="hero-meta"></b><br>anel interno = Bronze ✓</div></div>
       <div class="hero-hint">CLIQUE PARA COMEMORAR 🎉</div>
     </div>
   </div>
@@ -781,7 +787,7 @@ function playIntro(){
   const tot=DAILY_TOTAL.filter(d=>mOf(d.DataStr)===9).reduce((a,d)=>a+d.total,0);
   num.textContent='R$ 0';
   setTimeout(()=>cuEl(num,tot,'rs',1500),1450);
-  clearTimeout(INTRO_T);INTRO_T=setTimeout(finishIntro,3900);
+  clearTimeout(INTRO_T);
 }
 function skipIntro(){clearTimeout(INTRO_T);finishIntro()}
 function finishIntro(){
@@ -801,6 +807,8 @@ function afterIntro(){
   setTimeout(heroKick,350);
   setTimeout(raceMaybePlay,900);
 }
+
+addEventListener('keydown',e=>{if(document.documentElement.classList.contains('intro-on')&&(e.key==='Enter'||e.key===' '||e.key==='Escape')){e.preventDefault();skipIntro()}});
 
 /* ===== ESTADO ===== */
 const LAST_DATE='2026-09-30', CUR_M=9;
@@ -1329,6 +1337,7 @@ function hlCard(icon,title,value,desc,color,warn){
   return `<div class="card hc${warn?' warn':''}" style="--hcc:${color}"><div class="ht">${icon} ${title}</div><div class="hv">${value}</div><div class="hx">${desc}</div></div>`;
 }
 function mTotals(mm){const r=DAILY_TOTAL.filter(d=>mOf(d.DataStr)===mm);return{v:r.reduce((a,d)=>a+d.total,0),p:r.reduce((a,d)=>a+d.pedidos,0),q:r.reduce((a,d)=>a+d.pecas,0)}}
+const META_OURO9=1200000;
 let SET_DONE=false,SET_THEME_DIRTY=false,HERO=null;
 const C1=2*Math.PI*94,C2=2*Math.PI*74;
 
@@ -1343,26 +1352,27 @@ function renderSetPanel(){
   const ranked=[...sums].sort((a,b)=>b.v-a.v);
   const rank=ranked.findIndex(x=>x.m===m)+1;
   const best=ranked.find(x=>x.m!==m);
-  let acc=0,hitD=null,hitIdx=-1;rows.forEach((d,i)=>{acc+=d.total;if(hitD===null&&acc>=meta){hitD=d.DataStr;hitIdx=i}});
+  let acc=0,hitD=null,hitIdx=-1,hitO=null,hitOIdx=-1;rows.forEach((d,i)=>{acc+=d.total;if(hitD===null&&acc>=meta){hitD=d.DataStr;hitIdx=i}if(hitO===null&&acc>=META_OURO9){hitO=d.DataStr;hitOIdx=i}});
 
   if(!chartsOnly){
     /* ---- HERO ---- */
-    const top=Math.max(real,best.v,meta)*1.05,pos=v=>(v/top*100).toFixed(2);
-    document.getElementById('hero-sub').innerHTML=`Meta de <b>${fmtF(meta)}</b> superada em <b>${fmtF(real-meta)}</b>`+(hitD?` — batida em <b>${fmtDM(hitD)}</b>, no ${hitIdx+1}º dia de vendas.`:'.')+` ${rank===2?`Só ${MN[best.m-1]} (${fmtF(best.v)}) vendeu mais este ano; faltaram <b>${fmtF(best.v-real)}</b> para o recorde.`:rank===1?'<b>Melhor mês do ano.</b>':''}`;
+    const top=Math.max(real,META_OURO9)*1.06,pos=v=>(v/top*100).toFixed(2);
+    document.getElementById('hero-sub').innerHTML=`Meta <b>Bronze (${fmtF(meta)})</b> batida em <b>${fmtDM(hitD)}</b>, no ${hitIdx+1}º dia de vendas, e meta <b>Ouro (${fmtF(META_OURO9)})</b> batida em <b>${fmtDM(hitO)}</b>, no fim do mês — superada em <b>${fmtF(real-META_OURO9)}</b>. `+(rank===2?`Só ${MN[best.m-1]} (${fmtF(best.v)}) vendeu mais este ano; faltaram <b>${fmtF(best.v-real)}</b> para o recorde.`:rank===1?'<b>Melhor mês do ano.</b>':'');
     const chips=[
-      ['g','🎯 '+pct1(real/meta*100)+'% da meta'],
+      ['y','🥇 '+pct1(real/META_OURO9*100)+'% da meta Ouro'],
+      ['g','🥉 '+pct1(real/meta*100)+'% da meta Bronze'],
       ['b','📈 '+F.sg1(pct(real,y25))+' vs Set/2025'],
       [pct(real,P.v)>=0?'g':'y','↗ '+F.sg1(pct(real,P.v))+' vs Agosto'],
       ['y','🏅 '+ord(rank)+' melhor mês do ano'],
+      ['p','⚡ Bronze em '+fmtDM(hitD)+' · Ouro em '+fmtDM(hitO)],
     ];
-    if(hitD)chips.push(['p','⚡ meta batida em '+fmtDM(hitD)]);
     document.getElementById('hero-chips').innerHTML=chips.map((c,i)=>`<span class="chip ${c[0]}" style="--i:${i}">${c[1]}</span>`).join('');
     document.getElementById('hero-thermo').innerHTML=`<div class="th-track"><div class="th-fill" id="th-fill"></div></div>`+
-      [{v:y25,l:'Set/2025',c:'#c4b5fd'},{v:meta,l:'Meta',c:'#ffd27a'},{v:best.v,l:'Recorde '+MN[best.m-1],c:'#f0abfc'}]
+      [{v:y25,l:'Set/2025',c:'#c4b5fd'},{v:meta,l:'🥉 Meta Bronze',c:'#e0a36b'},{v:META_OURO9,l:'🥇 Meta Ouro',c:'#ffd27a'}]
         .map(k=>`<div class="th-mk" style="left:${pos(k.v)}%;--mk:${k.c}"><b>${fmt(k.v)}</b>${k.l}</div>`).join('');
-    document.getElementById('hero-meta').textContent=fmt(meta);
-    const p=real/meta;
-    HERO={o1:C1*(1-Math.min(1,p)),o2:C2*(1-Math.min(1,Math.max(0,p-1))),th:pos(real),pct:p*100,real};
+    document.getElementById('hero-meta').textContent=fmt(META_OURO9);
+    const p=real/META_OURO9,p2=real/meta;
+    HERO={o1:C1*(1-Math.min(1,p)),o2:C2*(1-Math.min(1,p2)),th:pos(real),pct:p*100,real};
     const r1=document.getElementById('ring1'),r2=document.getElementById('ring2'),fill=document.getElementById('th-fill'),hp=document.getElementById('hero-pct'),hn=document.getElementById('hero-num');
     const hero=document.getElementById('sp-hero');
     hero.classList.remove('go');
@@ -1411,14 +1421,15 @@ function renderSetPanel(){
   const daily=rows.map(d=>d.total);
   const maxV=Math.max(...daily);
   let c=0;const cum=daily.map(v=>c+=v);
-  document.getElementById('sp-day-sub').textContent='Barras = faturamento do dia (dourada = melhor dia) · linha azul = acumulado · ⭐ = dia em que bateu a meta · linha tracejada = meta do mês ('+fmt(meta)+')';
+  document.getElementById('sp-day-sub').textContent='Barras = faturamento do dia (dourada = melhor dia) · linha azul = acumulado · ⭐ = dia em que bateu a meta · tracejadas = meta Bronze ('+fmt(meta)+', batida em '+fmtDM(hitD)+') e meta Ouro ('+fmt(META_OURO9)+', batida em '+fmtDM(hitO)+')';
   if(cSetDay)cSetDay.destroy();
   cSetDay=new Chart(document.getElementById('chSetDay').getContext('2d'),{
     type:'bar',data:{labels,datasets:[
       {label:'Dia',data:daily,backgroundColor:daily.map(v=>v===maxV?'rgba(240,165,0,.95)':'rgba(0,200,150,.85)'),borderRadius:5,borderSkipped:false,yAxisID:'y',order:3},
       {label:'Acumulado',data:cum,type:'line',borderColor:'#3b82f6',backgroundColor:'#3b82f6',borderWidth:2.5,pointRadius:3,tension:.25,yAxisID:'y1',order:2},
-      {label:'🎯 Meta batida',data:cum.map((v,i)=>i===hitIdx?v:null),type:'line',showLine:false,pointStyle:'star',pointRadius:12,pointHoverRadius:14,borderColor:'#f0a500',backgroundColor:'#f0a500',yAxisID:'y1',order:1},
-      {label:'Meta',data:labels.map(()=>meta),type:'line',borderColor:'rgba(240,165,0,.95)',borderDash:[6,5],borderWidth:2,pointRadius:0,yAxisID:'y1',order:0},
+      {label:'⭐ Meta batida',data:cum.map((v,i)=>(i===hitIdx||i===hitOIdx)?v:null),type:'line',showLine:false,pointStyle:'star',pointRadius:12,pointHoverRadius:14,borderColor:'#f0a500',backgroundColor:cum.map((v,i)=>i===hitOIdx?'#f0a500':'#cd7f32'),yAxisID:'y1',order:1},
+      {label:'Meta Bronze',data:labels.map(()=>meta),type:'line',borderColor:'rgba(205,127,50,.95)',borderDash:[6,5],borderWidth:2,pointRadius:0,yAxisID:'y1',order:0},
+      {label:'Meta Ouro',data:labels.map(()=>META_OURO9),type:'line',borderColor:'rgba(240,165,0,.98)',borderDash:[2,4],borderWidth:2.2,pointRadius:0,yAxisID:'y1',order:0},
     ]},
     options:{responsive:true,interaction:{mode:'index',intersect:false},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw===null?'':` ${c.dataset.label}: ${fmtF(c.raw)}`}}},
@@ -1507,7 +1518,7 @@ function raceRender(i,fx){
     RACE.tier[n]=ti;
   });
   cuEl(document.getElementById('race-tot-v'),RACE.tot[i],'fmtF',fx?450:1);
-  document.getElementById('race-tot-p').textContent=pct1(RACE.tot[i]/META[9]*100)+'% da meta do mês';
+  document.getElementById('race-tot-p').textContent=pct1(RACE.tot[i]/META[9]*100)+'% da Bronze · '+pct1(RACE.tot[i]/META_OURO9*100)+'% da Ouro';
 }
 function racePlay(){
   clearInterval(RACE.timer);RACE.tier={};
